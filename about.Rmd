@@ -13,7 +13,7 @@ output:
 * Email: friendly AT yorku DOT ca `r icon::fa("envelope-square")`
 * Twitter: [datavisFriendly](http://twitter.com/datavisFriendly) `r icon::fa("twitter")`
 * Office: 226 BSB
-* Course web site: [http://datavis.ca/courses/VisMLM/](http://datavis.ca/courses/VisMLM/)
+* Course web site: [https://friendly.github.io/VisMLM-course/](https://friendly.github.io/VisMLM-course/)
 
 ## Course Description
 

@@ -14,5 +14,5 @@ This course covers data visualization methods designed to convert models and tab
 
 * Finally, if time permits, some model diagnostic plots for detecting multivariate outliers and lack of homogeneity of (co)variances will be described. 
 
-Participants should have a background in statistics including a course in linear models (ANOVA, multiple regression). In addition, they should have some familiarity with using R and R Studio, such as the SCS course, An Introduction to R and the Tidyverse or equivalent.  The web page for the course gives access to lecture notes and resources.
+Participants should have a background in statistics including a course in linear models (ANOVA, multiple regression). In addition, they should have some familiarity with using R and R Studio, such as the SCS course, An Introduction to R and the Tidyverse or equivalent.  The web page, https://friendly.github.io/VisMLM-course/, for the course gives access to lecture notes and resources.
 
