@@ -1,9 +1,11 @@
 name: "VisMLM"
-exclude: ["_abstracts", "figures",  "_others", "PPT", "test", "*.bak", "*.doc"]
+exclude: ["_abstract", "Private",  "_others", "PPT", "test", "*.bak", "*.doc"]
 
 output:
   html_document:
     theme: cosmo
+
+output_dir: docs
 
 navbar:
   title: "Visualizing Linear Models: An R Bag of Tricks"
