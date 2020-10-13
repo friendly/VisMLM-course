@@ -1,0 +1,165 @@
+#' ---
+#' title: "Linear models example: Occupational Prestige data"
+#' author: "Michael Friendly"
+#' date: "11 Oct 2020"
+#' ---
+
+#+ echo=FALSE
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, R.options=list(digits=4))
+
+#' ## Load packages & Prestige data
+
+library("car")
+library("effects")  # effect plots
+library("arm")      # coefplots
+data(Prestige)
+
+#' ## Reorder levels of `type` factor
+#' 
+#' Here it is useful to recognize that "bc" < "wc" < "prof" 
+Prestige$type <- ordered(Prestige$type, levels=c("bc", "wc", "prof")) # reorder levels
+some(Prestige, 6)
+
+#' Note that the occupation names are the `row.names` in the data.frame, not a separate variable.
+
+
+#' ## scatterplotMatrix
+#' 
+#' Let's get a visual overview of the data in a scatterplot matrix.
+
+#+ fig.width=7, fig.height=7
+scatterplotMatrix(~ prestige + education + income + women ,
+                  data=Prestige,
+                  regLine = list(method=lm, lty=1, lwd=2, col="black"),
+                  smooth=list(smoother=loessLine, spread=FALSE,
+                              lty.smooth=1, lwd.smooth=3, col.smooth="red"),
+                  ellipse=list(levels=0.68, fill.alpha=0.1))
+
+
+#' ## fancy scatterplots
+
+#' `car::scatterplot` has many options to add informative annotations, label unusual points, etc.
+#' This plot shows clearly that income is positively skewed and the relation with `prestige` is non-linear.
+#' The `id =` argument allows to identify unusual observations with their labels
+
+scatterplot(prestige ~ income, data=Prestige,
+            pch = 16,
+            regLine = list(col = "red", lwd=3),
+            smooth = list(smoother=loessLine,
+                          lty.smooth = 1, col.smooth = "black", lwd.smooth=3,
+                          col.var = "darkgreen"),
+            ellipse = list(levels = 0.68),
+            id = list(n=4, col="black", cex=1.2))
+
+#' ## What would log(income) look like?
+#' 
+#' Rather than actually transforming `income`, the argument `log = "x"` says to 
+#' plot `income` on a log scale
+scatterplot(prestige ~ income, data=Prestige, 
+            log = "x",
+            pch = 16,
+            regLine = list(col = "red", lwd=3),
+            smooth = list(smoother=loessLine,
+                          lty.smooth = 1, col.smooth = "black", lwd.smooth=3,
+                          col.var = "darkgreen"),
+            ellipse = list(levels = 0.68), 
+            id = list(n=4, col="black", cex=1.2))
+
+
+#' ## Stratify by type
+#' 
+#' The formula notation `~ income | type` says to do plot annotations conditional on occupation type.
+#' Oh, now that has a very different interpretation!
+scatterplot(prestige ~ income | type, data=Prestige,
+            col = c("blue", "red", "darkgreen"),
+            pch = 15:17,
+            legend = list(coords="bottomright"),
+            smooth=list(smoother=loessLine, 
+                        var=FALSE, span=1, lwd=4))
+
+
+
+#' ## Fit the basic all main effects model
+data(Prestige)
+mod0 <- lm(prestige ~ education + income + women + type,
+           data=Prestige)
+summary(mod0)
+
+
+#' ## Add more complex terms
+#' 
+#' Here we allow that %women might have a quadratic relation to prestige,
+#' that income is best modeled on a log scale, and that log(income)
+#' interacts with occupation `type`.
+mod1 <- lm(prestige ~ education + poly(women, 2) +
+                     log(income)*type, data=Prestige)
+summary(mod1)
+
+#' ## Plot coefficients
+#' 
+#' Plots of coefficients with CI often more informative that tables of coefficients.
+arm::coefplot(mod0)
+arm::coefplot(mod1, add=TRUE)
+
+#' ## Compare model fits
+#' 
+#' This `anova` call tests whether `mod1` is a significant improvement over the baseline `mod0`
+anova(mod0, mod1)
+
+#' ## Effect plots
+             
+#' Effect of `education` averaged over others
+mod1.e1 <- predictorEffect("education", mod1)
+plot(mod1.e1)
+
+#' Effect of `education`, but showing partial residuals. In some cases, this will help spot influential cases
+#' in the partial relation of a predictor to the response.
+
+mod1.e1a <- predictorEffect("education", mod1, residuals=TRUE)
+plot(mod1.e1a, 
+     residuals.pch=16, id=list(n=4, col="black"))
+
+#' Effect of `women` averaged over others. The blue curve shows the fitted quadratic relation in the model.
+#' The red curve shows a non-parametric smoooth.
+
+mod1.e2 <- predictorEffect("women", mod1, residuals=TRUE)
+plot(mod1.e2, ylim=c(40, 65), lwd=4,
+     residuals.pch=16)
+
+
+#' Effect of `income` (by `type`) averaged over others
+
+plot(predictorEffect("income", mod1),
+     lines=list(multiline=TRUE, lwd=3),
+     key.args = list(x=.7, y=.35),
+    )
+
+
+#' ## Diagnostic plots
+#' 
+#' In base graphics, `plot()` for an `lm` object gives the "regression quartet" of diagnostic plots.
+
+op <- par(mfrow=c(2,2))
+plot(mod1, lwd=2, cex.lab=1.4)
+par(op)
+
+
+#' ## better QQ plots from car
+
+#' Overall plot of residuals for `mod1`
+#' 
+qqPlot(mod1, pch=16)
+
+#' QQ plots 
+qqPlot(~ income, data=Prestige, subset = type == "prof")
+qqPlot(income ~ type, data=Prestige, layout=c(1, 3))
+
+
+#' ## influence plot
+#'
+#+ fig.height=6, fig.width=7
+car::influencePlot(mod1, id=list(n=2, cex=1.4), cex.lab=1.4)
+
+
+
+

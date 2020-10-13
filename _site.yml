@@ -1,0 +1,20 @@
+name: "VisMLM"
+exclude: ["_abstracts", "figures",  "_others", "PPT", "test", "*.bak", "*.doc"]
+
+output:
+  html_document:
+    theme: cosmo
+
+navbar:
+  title: "Visualizing Linear Models: An R Bag of Tricks"
+  type: inverse
+  left:
+    - text: "Home"
+      icon: fa-home fa-2x   # handy way to use FontAwesome icons in nav!
+      href: index.html
+    - text: "About"
+      icon: fa-file  fa-2x
+      href: about.html
+    - text: "Resources"
+      icon: fa-book  fa-2x
+      href: resources.html

@@ -1,0 +1,68 @@
+---
+title: "Resources"
+output:
+  html_document:
+    css: styles.css
+    includes:
+      after_body: footer.html
+---
+
+
+```{r tabfig, echo=FALSE}
+source("R/tabfig.R")
+```
+
+## Books {#books}
+
+```{r do-books, echo=FALSE}
+width <- "160px"
+tab(class="cellpadding", width="800px",
+  tr(
+  	tabfig("fox", "images/books/car-3e.jpg", 
+  	       "https://us.sagepub.com/en-us/nam/an-r-companion-to-applied-regression/book246125", width=width),
+  	tabtxt("Fox & Weisberg,",  a("An R Companion to Applied Regression",
+  	                         href="https://us.sagepub.com/en-us/nam/an-r-companion-to-applied-regression/book246125"),
+  	       ". A comprehensive introduction to linear models, regression diagnostics, etc.", br()
+           # "Course notes at", aself("http://ccom.unh.edu/vislab/VisCourse/index.html")
+  	       )
+  	),
+
+  tr(
+  	tabfig("Wickham", "images/books/ggplot-book-2ndEd.jpg", 
+  	       "https://www.springer.com/gp/book/9780387981413", width=width),
+  	tabtxt("Hadley Wickham,",  a("ggplot2: Elegant Graphics for Data Analysis",
+  	       href="https://www.springer.com/gp/book/9780387981413"),
+  	       ". The printed version of the ggplot2 book. The 3rd edition is online at",
+  	       a("https://ggplot2-book.org/", href= "https://ggplot2-book.org/")
+           )
+  	),
+  tr(
+  	tabfig("Chang", "images/books/RGraphicsCookbook.jpg", 
+  	       "https://www.amazon.com/dp/1491978600", width=width),
+  	tabtxt("Winston Chang,",  a("R Graphics Cookbook: Practical Recipes for Visualizing Data, 2nd Edition",
+  	       href="https://www.amazon.com/dp/1491978600"),
+  	       ". A problem-oriented book on R Graphics, with 'recipes' for common graphing problems. This edition is online at",
+  	       a("https://r-graphics.org/", href= "https://r-graphics.org/")
+           )
+  	)
+
+  )
+```
+
+### Other books on data visualization
+
+For learning more about basic and advanced plotting using R:
+
+* Kieran Healy, [Data Visualization - A practical introduction](https://socviz.co/). Contains an early draft of the book online.
+* Antony Unwin, [Graphical Data Analysis with R](http://www.gradaanwr.net/). Web site contains all figures & R code.
+
+
+
+<!-- ## Software {#software} -->
+
+## R 
+
+* Instructions to install R and R Studio for [Windows](info/installing-r-rstudio-windows.pdf) and [Mac](info/installing-r-rstudio-mac.pdf).
+
+
+

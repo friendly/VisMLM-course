@@ -1,0 +1,109 @@
+---
+title: "Visualizing Linear Models: An R Bag of Tricks"
+author: "Michael Friendly"
+date: "Oct, 2020"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: yes
+    css: styles.css
+    includes:
+      after_body: footer.html
+
+---
+
+## 1: Getting started
+
+<center>
+<img src="images/lec1-banner.png" width="450px"/>
+</center>
+
+### Topics:
+
+- Why plot your data?
+- Data plots 
+- Effect plots 
+- Diagnostic plots
+
+### Materials:
+
+- **Lecture notes**: [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) 
+- **Examples**: 
+  + Prestige data [prestige-ex.R](examples/prestige-ex.R) || [prestige-ex.html](examples/prestige-ex.html) 
+  + Penguin data [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html) 
+
+- **Lab exercise**: TBA, or not
+
+### Learning more
+
+- [Building better tables in R](https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/) How to make tables people ACTUALY want to read.
+- [Visualizing Trends of Multivariate Data in R using ggplot2](https://towardsdatascience.com/visualizing-trends-of-multivariate-data-in-r-using-ggplot2-1b85409afcfb)
+- Effect plots are illustrated in the 
+[predictor effects gallery vignette](https://cran.r-project.org/web/packages/effects/vignettes/predictor-effects-gallery.pdf)
+- Exploratory multivariate plots of the Palmer Penguins data
+[**Penguin data: Multivariate EDA**](https://rpubs.com/friendly/penguin-biplots)
+
+
+## 2: Multivariate Models
+
+<center>
+<img src="images/lec2-banner.png" width="450px"/>
+</center>
+
+### Topics:
+
+- Brief review of the MLM
+- Data ellipses
+- HEplot framework
+
+### Materials:
+- **Lecture notes**: [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf)
+- **Examples**:
+  + Math scores: HE plot examples [mathscore-ex.R](examples/mathscore-ex.R) || [mathscore-ex.html](examples/mathscore-ex.html)
+<!--
+  + Penguins data: [penguins-he-ex.R](examples/penguins-he-ex.R) || [penguins-he-ex.html](examples/penguins-he-ex.html)
+-->
+  + Penguins data: [Multivariate EDA vignette](https://rpubs.com/friendly/penguin-biplots)
+- **Lab exercise**: TBA
+
+### Learning more
+
+- Fox, Friendly & Weisberg (2013), *Hypothesis Tests for Multivariate
+Linear Models Using the car Package* http://www.datavis.ca/papers/Fox+Friendly+Weisberg.pdf
+- Friendly & Sigal (2017), *Graphical methods for multivariate linear models in
+psychological research: An R tutorial* 
+DOI: 10.20982/tqmp.13.1.p020 
+http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
+- [**MANOVA and HE plots**](https://rpubs.com/friendly/penguin-manova) This vignette illustrates the use of MANOVA, HE plots and canonical discriminant analysis in the analysis of the Palmer penguins data.
+- Friendly (2020), [**HE plot Examples**](https://cran.r-project.org/web/packages/heplots/vignettes/HE-examples.pdf)
+- `heplots` package documentation, http://friendly.github.io/heplots/
+
+
+## 3: Examples & Extensions
+
+<center>
+<img src="images/lec3-banner.png" width="450px"/>
+</center>
+
+### Topics:
+
+- MANOVA
+- MMREG
+- Homogeneity of covariance matrices
+
+### Materials:
+- **Lecture notes**: [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf)
+- **Examples**: 
+  + Neuro Cognitive measures [NeuroCog-ex.R](examples/NeuroCog-ex.R) || [NeuroCog-ex.html](examples/NeuroCog-ex.html) 
+  + Social cognition measures [SC-ex.R](examples/SC-ex.R) || [SC-ex.html](examples/SC-ex.html)
+  + Rohwer MMRA data [Rohwer-MMRA-ex.R](examples/Rohwer-MMRA-ex.R) || [Rohwer-MMRA-ex.html](examples/Rohwer-MMRA-ex.html)
+- **Lab exercise**: TBA
+
+### Learning more
+
+- Friendly & Sigal (2018) *Visualizing Tests for Equality of Covariance Matrices* http://www.datavis.ca/papers/EqCov-TAS.pdf
+
+
+
+

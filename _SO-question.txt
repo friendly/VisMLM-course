@@ -1,0 +1,37 @@
+Creating github.io pages for a course using kintr::render_site
+
+I'm confused about the organization of files for a course built
+using `knitr:render_site` and to be deployed on github
+as `my_name.github.io/course_name`
+
+* Github pages creates the web pages from the `docs/` directory, whereas
+`render_site` places them in a `_site` directory.  Will it work if
+I just use:
+
+    output_dir = docs
+
+in my `_site.yml` file?  Or is there a different way to do this?
+
+
+My local project directory looks like this. 
+
++-- about.Rmd
++-- examples
++-- exercises
++-- fig
++-- footer.html
++-- images
++-- index.Rmd
++-- lectures
+|   +-- lecture1.pdf
+|   +-- lecture1.pptx
+|   +-- lecture1.Rmd
+|   +-- lecture2.pdf
+|   +-- lecture2.pptx
+|   +-- lecture3.pdf
+|   \-- lecture3.pptx
+++-- R
++-- resources.Rmd
++-- styles.css
++-- _site
++-- _site.yml
