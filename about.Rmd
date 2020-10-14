@@ -15,6 +15,11 @@ output:
 * Office: 226 BSB
 * Course web site: [https://friendly.github.io/VisMLM-course/](https://friendly.github.io/VisMLM-course/)
 
+## Dates / Location
+
+*Dates/ Time* Thurs: Oct 22, 29, Nov 5; 1pm - 4pm
+*Zoom*
+
 ## Course Description
 
 OK, so you ran your ANOVA, multiple regression (MRA), or multivariate counterparts (MANOVA, MMRA), but now you need to visualize the results to both understand them and communicate.  Who you gonna run to? – R of course.
