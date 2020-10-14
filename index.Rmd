@@ -65,6 +65,7 @@ output:
   + Penguins data: [penguins-he-ex.R](examples/penguins-he-ex.R) || [penguins-he-ex.html](examples/penguins-he-ex.html)
 -->
   + Penguins data: [Multivariate EDA vignette](https://rpubs.com/friendly/penguin-biplots)
+  + Diabetes data: [heplots and candisc examples vignette](https://cran.r-project.org/web/packages/candisc/vignettes/diabetes.html) 
 - **Lab exercise**: TBA
 
 ### Learning more
