@@ -11,16 +11,18 @@ data(Diabetes, package="heplots")
 str(Diabetes)
 
 ## ----covEllipse, fig.height=5, fig.width=5-------------------------------
+
 covEllipses(Diabetes[,2:5], Diabetes$group, fill=TRUE, pooled=FALSE, 
 	col=c("blue", "red", "darkgreen"), variables=1:3)
 
 ## ----scatter, fig.width=6, fig.height=5, echo=-1-------------------------
 op <- par(mar=c(4,4,0,1)+.5)
 scatterplot( instest ~ glutest | group, data=Diabetes, 
-             pch=c(16,15,17), 
+             pch=c(16,15,17), lwd=2,
              col=c("blue", "red", "darkgreen"),
-             smooth=FALSE, grid=FALSE, legend.coords="topright", lwd=2,
-             ellipse=TRUE, levels=0.5)
+             smooth=FALSE, grid=FALSE, 
+             legend=list(coords="topright"), 
+             ellipse=list(levels=0.5))
 
 ## ----scatter3d, eval=FALSE-----------------------------------------------
 #  scatter3d(sspg ~ glutest + instest | group, data=Diabetes,
@@ -32,7 +34,7 @@ diab.boxm <- boxM(Diabetes[,2:5], Diabetes$group)
 diab.boxm
 
 op <- par(mar=c(4,6,1,1)+.5)
-plot(diab.boxm, cex.lab=1.5)
+plot(diab.boxm, cex.lab=1.5, gplabel="Group")
 
 ## ----diab-mlm------------------------------------------------------------
 diab.mlm <- lm(cbind(glufast, glutest, instest, sspg) ~ group, data=Diabetes)
