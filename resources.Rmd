@@ -63,6 +63,10 @@ For learning more about basic and advanced plotting using R:
 ## R 
 
 * Instructions to install R and R Studio for [Windows](info/installing-r-rstudio-windows.pdf) and [Mac](info/installing-r-rstudio-mac.pdf).
+* An [interactive tutorial](https://learnr-examples.shinyapps.io/ex-setup-r/) that guides you through
+the steps of installing R and R Studio.
+
+
 
 
 
