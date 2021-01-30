@@ -31,7 +31,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -77,6 +77,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -284,21 +285,21 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
     Home
   </a>
 </li>
 <li>
   <a href="about.html">
-    <span class="fa fa-file  fa-2x"></span>
+    <span class="fas fa-file  fa-2x"></span>
      
     About
   </a>
 </li>
 <li>
   <a href="resources.html">
-    <span class="fa fa-book  fa-2x"></span>
+    <span class="fas fa-book  fa-2x"></span>
      
     Resources
   </a>
@@ -332,7 +333,7 @@ $(document).ready(function () {
 </div>
 <div id="dates-location" class="section level2">
 <h2>Dates / Location</h2>
-<p><em>Dates/ Time</em> Thurs: Oct 22, 29, Nov 5; 1pm - 4pm <em>Zoom</em></p>
+<p><em>Dates/ Time</em> Mon: Mar. 1, 8, 15; 2:30pm - 5:30pm <em>Zoom</em></p>
 </div>
 <div id="course-description" class="section level2">
 <h2>Course Description</h2>
@@ -367,7 +368,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

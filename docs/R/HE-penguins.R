@@ -1,6 +1,5 @@
 
 library(dplyr)
-#library(readr)
 library(tidyr)
 library(car)
 library(heplots)
@@ -8,38 +7,24 @@ library(candisc)
 library(palmerpenguins)
 library(ggplot2)
 
+# peng <- penguins %>%
+# 	rename(
+#          bill_length = bill_length_mm, 
+#          bill_depth = bill_depth_mm, 
+#          flipper_length = flipper_length_mm, 
+#          body_mass = body_mass_g
+#          ) %>%
+#   mutate(species = as.factor(species),
+#          island = as.factor(island),
+#          sex = as.factor(substr(sex,1,1))) %>%
+#   filter(!is.na(bill_depth),
+#          !is.na(sex))
+# 
+# str(peng)
+# View(peng)
 
+load("data/peng.RData")
 
-#url <- "https://raw.githubusercontent.com/friendly/penguins/master/data/penguins_size.csv"
-#url <- "https://raw.githubusercontent.com/allisonhorst/penguins/master/data/penguins_size.csv"
-#
-#penguins <-read_csv(url)
-
-peng <- penguins %>%
-	rename(
-         bill_length = bill_length_mm, 
-         bill_depth = bill_depth_mm, 
-         flipper_length = flipper_length_mm, 
-         body_mass = body_mass_g
-         ) %>%
-  mutate(species = as.factor(species),
-         island = as.factor(island),
-         sex = as.factor(substr(sex,1,1))) %>%
-  filter(!is.na(bill_depth),
-         !is.na(sex))
-
-str(peng)
-View(peng)
-
-# vars <- paste(names(peng)[-1], collapse="\n")
-# cat(vars)
-
-# island
-# bill_length
-# bill_depth
-# flipper_length
-# body_mass
-# sex
 
 
 peng.pca <- prcomp (~ bill_length + bill_depth + flipper_length + body_mass,
@@ -166,7 +151,7 @@ pairs(peng.mod0, size="effect", fill=c(TRUE, FALSE),
       fill.alpha=0.1, lwd=c(1,3))
 
 library(rgl)
-heplot3d(peng.mod0, shade=TRUE, shade.alpha=0.2, wire=FALSE, size="effect")
+heplot3d(peng.mod0, shade=TRUE, shade.alpha=0.2, wire=FALSE, depth_mask=FALSE, back="cull", size="effect")
 
 par3d(windowRect = c(0, 0, 500, 500) + 40)
 

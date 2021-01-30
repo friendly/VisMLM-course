@@ -32,7 +32,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -78,6 +78,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -285,21 +286,21 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
     Home
   </a>
 </li>
 <li>
   <a href="about.html">
-    <span class="fa fa-file  fa-2x"></span>
+    <span class="fas fa-file  fa-2x"></span>
      
     About
   </a>
 </li>
 <li>
   <a href="resources.html">
-    <span class="fa fa-book  fa-2x"></span>
+    <span class="fas fa-book  fa-2x"></span>
      
     Resources
   </a>
@@ -378,6 +379,7 @@ Winston Chang,
 <h2>R</h2>
 <ul>
 <li>Instructions to install R and R Studio for <a href="info/installing-r-rstudio-windows.pdf">Windows</a> and <a href="info/installing-r-rstudio-mac.pdf">Mac</a>.</li>
+<li>An <a href="https://learnr-examples.shinyapps.io/ex-setup-r/">interactive tutorial</a> that guides you through the steps of installing R and R Studio.</li>
 </ul>
 </div>
 
@@ -402,7 +404,7 @@ Winston Chang,
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
