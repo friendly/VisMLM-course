@@ -29,12 +29,12 @@ output:
 ### Materials:
 
 - **Lecture notes**: [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) 
+- **Lab exercise**: 
+  + Visualizing regression models [duncan-reg.html](exercises/duncan-reg.html) || [duncan-reg.R](exercises/duncan-reg.R)
+
 - **Examples**: 
   + Prestige data [prestige-ex.R](examples/prestige-ex.R) || [prestige-ex.html](examples/prestige-ex.html) 
   + Penguin data [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html) 
-
-- **Lab exercise**: 
-  + Visualizing regression models [duncan-reg.html](exercises/duncan-reg.html) || [duncan-reg.R](exercises/duncan-reg.R)
 
 ### Learning more
 
@@ -62,6 +62,10 @@ output:
 
 ### Materials:
 - **Lecture notes**: [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf)
+
+- **Lab exercise**: 
+  + Visualizing MMRA Models [rohwer-mmra.html](exercises/duncan-reg.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R)
+
 - **Examples**:
   + Math scores: HE plot examples [mathscore-ex.R](examples/mathscore-ex.R) || [mathscore-ex.html](examples/mathscore-ex.html)
 <!--
@@ -70,7 +74,6 @@ output:
   + Penguins data: [Multivariate EDA vignette](https://rpubs.com/friendly/penguin-biplots)
   + Diabetes data: [heplots and candisc examples vignette](https://cran.r-project.org/web/packages/candisc/vignettes/diabetes.html) 
 
-<!-- - **Lab exercise**: TBA -->
 
 ### Learning more
 

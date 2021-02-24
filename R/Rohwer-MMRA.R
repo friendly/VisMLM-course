@@ -1,5 +1,8 @@
 # Rohwer data, MMRA
 
+library(car)
+library(heplots)
+
 data("Rohwer", package="heplots")
 Rohwer2 <- subset(Rohwer, subset=group==2)
 rownames(Rohwer2)<- 1:nrow(Rohwer2)
@@ -15,7 +18,7 @@ print(linearHypothesis(rohwer.mlm,
 rohwer.coef <- coef(rohwer.mlm)[-1,]
 
 library(broom)
-tidy(rohwer.mod)
+tidy(rohwer.mlm)
 
 rohwer.mod1 <- lm ( SAT   ~ n + s + ns + na + ss, data = Rohwer2)
 rohwer.mod2 <- lm ( PPVT  ~ n + s + ns + na + ss, data = Rohwer2)
@@ -24,16 +27,13 @@ rohwer.mod3 <- lm ( Raven ~ n + s + ns + na + ss, data = Rohwer2)
 library(stargazer)
 
 stargazer(rohwer.mod1, rohwer.mod2, rohwer.mod3,
-#	out="./tab/rohwer-mods.tex",
-#	nobs=FALSE, 
-	type = "text",
+	type = "text",        # or "LaTeX", "HTML
 	digits=2,
-	omit.table.layout = "#",
 	star.cutoffs = c(0.05, 0.01, 0.001),
 	omit = "Constant",
-	table.placement = "!htb",
-	label="tab:rohwer-mods",
+	no.space=TRUE,
 	title="Univariate regression models for Rohwer data")
+
 
 
 cols <-  c("red", "blue", "black", "darkgreen", "darkcyan", "magenta", 
