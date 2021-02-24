@@ -1,6 +1,5 @@
 # script to install needed packages for my VisMLM course
 
-
 # set CRAN mirror
 local({r <- getOption("repos")
        r["CRAN"] <- "https://cloud.r-project.org"
@@ -8,10 +7,9 @@ local({r <- getOption("repos")
        })
 
 # list of packages to install
-pkgs <- c("candisc", "car", "corrgram", "dplyr", "effects", "ggplot2",     
-	"heplots", "HH", "knitr", "modelsummary", "stargazer",
-	"rgl", "visreg",
-	"tidyverse",  ) 
+pkgs <- c("broom", "candisc", "car", "corrgram", "dplyr", "effects", "ggplot2", "glue", 
+          "heplots", "knitr", "learnr", "MASS", "modelsummary", 
+          "palmerpenguins", "stargazer", "rgl", "tidyverse", "visreg") 
 
 # install the above, along with any dependencies
 install.packages(pkgs, dependencies=TRUE)
