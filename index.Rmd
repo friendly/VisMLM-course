@@ -23,7 +23,7 @@ To follow along and run any tutorials or examples, you will need the following:
 - The following R packages are used:   
 broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, palmerpenguins, stargazer, rgl, tidyverse, visreg
 
-You can install all required R packages at once by running the script [install-vismlm-pkgs.r](Rinstall-vismlm-pkgs.r).
+You can install all required R packages at once by running the script [install-vismlm-pkgs.r](R/install-vismlm-pkgs.r).
 Alternativelty, use the following code in the R console:
 
 ```{r eval = FALSE, echo = TRUE}
@@ -87,7 +87,7 @@ install.packages(pkgs, dependencies=TRUE)
 - **Lecture notes**: [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf)
 
 - **Lab exercise**: 
-  + Visualizing MMRA Models [rohwer-mmra.html](exercises/duncan-reg.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R)
+  <!-- + Visualizing MMRA Models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R) -->
 
 - **Examples**:
   + Math scores: HE plot examples [mathscore-ex.R](examples/mathscore-ex.R) || [mathscore-ex.html](examples/mathscore-ex.html)
@@ -125,6 +125,10 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
 
 ### Materials:
 - **Lecture notes**: [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf)
+
+- **Lab exercise**: 
+  + Visualizing MMRA Models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R)
+
 - **Examples**: 
   + Neuro Cognitive measures [NeuroCog-ex.R](examples/NeuroCog-ex.R) || [NeuroCog-ex.html](examples/NeuroCog-ex.html) 
   + Social cognition measures [SC-ex.R](examples/SC-ex.R) || [SC-ex.html](examples/SC-ex.html)
