@@ -1,0 +1,23 @@
+# from: https://link.springer.com/article/10.1007/s11336-020-09731-4#Sec14
+
+For each of the plots in this section, we present partial correlation networks,
+which are found by taking an inversion of the covariance matrix in each of the
+terminal nodes. We could also potentially examine the terminal nodes in terms of
+the raw covariance matrices, correlation matrices, regularized partial
+correlation networks, factor models, etc. Because the splits are based on the
+covariance matrix, special caution should be taken when further estimation
+procedures are applied to the terminal nodes (e.g., graphical lasso networks).
+
+We selected data from the Ten Item Personality Inventory (TIPI; Gosling et al.
+2003), Depression Anxiety and Stress Scale (DASS; Brown et al. 1997), and
+accompanying demographic information and validity checks.
+
+First, we examined the TIPI data. The TIPI is a brief inventory of the Big Five
+personality domains. Scores on each personality domain are calculated by
+averaging items assigned to each domain (after reverse scoring specific items).
+After removing individuals that failed validity checks, we were left with 1899
+observations. Before applying MOB/CTree, we generated an overall partial
+correlation network based on the full sample, given in Fig. 4. The resulting
+structure suggests a negative relationship between neuroticism and
+conscientiousness, a positive relationship between extraversion and openness to
+experience, and several other potentially interesting relationships.

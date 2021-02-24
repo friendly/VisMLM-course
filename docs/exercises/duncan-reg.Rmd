@@ -40,7 +40,7 @@ To work through this exercise in R Studio, open a new R script (say, `vismlm-ex1
 following this document (in another window).  In this document, you are encouraged to try things yourself, 
 but you can click <kbd>Code</kbd> / <kbd>Hide</kbd> for individual chunks. When code is shown, the icon at the upper left <img src="clipboard.png" height=22 width=22> will copy it to the clipboard.
 The script for this excercise is contained in 
-[exercises/duncan-ex1.R](exercises/duncan-reg.R). 
+[duncan-ex1.R](duncan-reg.R). 
 
 ### Load packages
 
