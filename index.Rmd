@@ -85,9 +85,7 @@ install.packages(pkgs, dependencies=TRUE)
 
 ### Materials:
 - **Lecture notes**: [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf)
-
 - **Lab exercise**: 
-  <!-- + Visualizing MMRA Models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R) -->
 
 - **Examples**:
   + Math scores: HE plot examples [mathscore-ex.R](examples/mathscore-ex.R) || [mathscore-ex.html](examples/mathscore-ex.html)
@@ -125,7 +123,6 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
 
 ### Materials:
 - **Lecture notes**: [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf)
-
 - **Lab exercise**: 
   + Visualizing MMRA Models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R)
 
@@ -138,6 +135,7 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
 
 ### Learning more
 
+- Friendly & Sigal (2016) *Analysis of Rohwer Data with MANCOVA*, https://rpubs.com/friendly/Rohwer-MANCOVA-ex  
 - Friendly & Sigal (2018) *Visualizing Tests for Equality of Covariance Matrices* http://www.datavis.ca/papers/EqCov-TAS.pdf
 
 
