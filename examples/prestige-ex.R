@@ -1,31 +1,40 @@
 #' ---
 #' title: "Linear models example: Occupational Prestige data"
 #' author: "Michael Friendly"
-#' date: "11 Oct 2020"
+#' date: "11 Feb 2021"
+#' output:
+#'   html_document:
+#'     theme: readable
+#'     code_download: true
 #' ---
 
 #+ echo=FALSE
 knitr::opts_chunk$set(warning=FALSE, message=FALSE, R.options=list(digits=4))
 
 #' ## Load packages & Prestige data
+#' 
+#' The `car` and `effects` packages are the main workhorses here.
 
 library("car")
 library("effects")  # effect plots
 library("arm")      # coefplots
-data(Prestige)
+data(Prestige, package="carData")
 
 #' ## Reorder levels of `type` factor
 #' 
-#' Here it is useful to recognize that "bc" < "wc" < "prof" 
+#' Here it is useful to recognize that "bc" < "wc" < "prof". Do so by making `Prestige$type` an ordered factor.
+#' Note that the occupation names are the `row.names` in the data.frame, not a separate variable.
+
 Prestige$type <- ordered(Prestige$type, levels=c("bc", "wc", "prof")) # reorder levels
 some(Prestige, 6)
 
-#' Note that the occupation names are the `row.names` in the data.frame, not a separate variable.
 
 
 #' ## scatterplotMatrix
 #' 
-#' Let's get a visual overview of the data in a scatterplot matrix.
+#' Let's get a visual overview of the data in a scatterplot matrix. I use options to specify a
+#' linear regression line (`regLine=`), a loess smoothed curve (`smooth=`) and 
+#' a 68% (~ $\bar{y} \pm 1 sd$) data ellipse (`ellipse=`) in each panel.
 
 #+ fig.width=7, fig.height=7
 scatterplotMatrix(~ prestige + education + income + women ,
@@ -51,7 +60,7 @@ scatterplot(prestige ~ income, data=Prestige,
             ellipse = list(levels = 0.68),
             id = list(n=4, col="black", cex=1.2))
 
-#' ## What would log(income) look like?
+#' ### What would log(income) look like?
 #' 
 #' Rather than actually transforming `income`, the argument `log = "x"` says to 
 #' plot `income` on a log scale
@@ -66,7 +75,7 @@ scatterplot(prestige ~ income, data=Prestige,
             id = list(n=4, col="black", cex=1.2))
 
 
-#' ## Stratify by type
+#' ### Stratify by type
 #' 
 #' The formula notation `~ income | type` says to do plot annotations conditional on occupation type.
 #' Oh, now that has a very different interpretation!
@@ -79,7 +88,7 @@ scatterplot(prestige ~ income | type, data=Prestige,
 
 
 
-#' ## Fit the basic all main effects model
+#' ## Fit the basic all-main-effects model
 data(Prestige)
 mod0 <- lm(prestige ~ education + income + women + type,
            data=Prestige)
@@ -139,18 +148,20 @@ plot(predictorEffect("income", mod1),
 #' 
 #' In base graphics, `plot()` for an `lm` object gives the "regression quartet" of diagnostic plots.
 
+#+ fig.width=7, fig.height=7
 op <- par(mfrow=c(2,2))
 plot(mod1, lwd=2, cex.lab=1.4)
-par(op)
 
 
-#' ## better QQ plots from car
+
+#' ## better QQ plots from `car::qqPlot`
 
 #' Overall plot of residuals for `mod1`
 #' 
 qqPlot(mod1, pch=16)
 
-#' QQ plots 
+#' QQ plots for individual variables and/or subsets
+#' 
 qqPlot(~ income, data=Prestige, subset = type == "prof")
 qqPlot(income ~ type, data=Prestige, layout=c(1, 3))
 
@@ -158,7 +169,7 @@ qqPlot(income ~ type, data=Prestige, layout=c(1, 3))
 #' ## influence plot
 #'
 #+ fig.height=6, fig.width=7
-car::influencePlot(mod1, id=list(n=2, cex=1.4), cex.lab=1.4)
+car::influencePlot(mod1, id=list(n=2, cex=1.2), cex.lab=1.4)
 
 
 
