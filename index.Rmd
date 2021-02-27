@@ -24,7 +24,7 @@ To follow along and run any tutorials or examples, you will need the following:
 broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, palmerpenguins, stargazer, rgl, tidyverse, visreg
 
 You can install all required R packages at once by running the script [install-vismlm-pkgs.r](R/install-vismlm-pkgs.r).
-Alternativelty, use the following code in the R console:
+Alternativelty, use the following code in the R Studio console or from an editor window.
 
 ```{r eval = FALSE, echo = TRUE}
 pkgs <- c("broom", "candisc", "car", "corrgram", "dplyr", "effects", "ggplot2", 
@@ -36,7 +36,7 @@ install.packages(pkgs, dependencies=TRUE)
 ```
 
 
-## 1: Getting started
+## 1: Getting started: Linear Models
 
 <center>
 <img src="images/lec1-banner.png" width="450px"/>
