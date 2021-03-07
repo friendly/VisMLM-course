@@ -1,0 +1,323 @@
+---
+#############################################################
+#                                                           #
+# Click on "Run Document" in RStudio to run this worksheet. #
+#                                                           #
+#############################################################
+title: "Visualizing Multivariate Data: Penguins"
+author: "Michael Friendly"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE,
+                      message = FALSE,
+                      comment = "")
+knitr::set_alias(w = "fig.width", h = "fig.height")
+
+library(palmerpenguins)
+library(learnr)
+library(dplyr)
+library(tidyr)
+
+## Clean up variable names, get rid of NAs, etc.
+# Remove units from variable names (for display purposes). Character variables should be factors.
+peng <- penguins %>%
+  rename(
+    bill_length = bill_length_mm, 
+    bill_depth = bill_depth_mm, 
+    flipper_length = flipper_length_mm, 
+    body_mass = body_mass_g
+  ) %>%
+  mutate(species = as.factor(species),
+         island = as.factor(island),
+         sex = as.factor(substr(sex,1,1))) %>%
+  filter(!is.na(bill_depth),
+         !is.na(sex))
+```
+
+
+
+## Introduction
+
+The purpose of this exercise is to introduce you to some basic graphical displays
+useful for multivariate data, particularly those associated with simple one-way
+MANOVA designs.
+
+We will be using the following R packages: 
+
+* **dplyr**, **tidyr** for data wrangling,
+* **ggplot2** for some plotting,
+* **car** for better data analysis graphics,
+* **heplots**, **candisc** for visualizing multivariate linear models
+
+```{r library-calls, echo = TRUE}
+# load required libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(car)
+library(heplots)
+library(candisc)
+```
+
+This exercise uses the **learnr** package.  
+
+## Penguins data
+
+The `Penguins` dataset, from the **palmerpenguins** package, contains "size" data on 
+three species of penguins from three islands in Antartica. The size variables
+are two measures of their bills (`bill_length`, and `bill_depth`), length of the
+flipper, and body mass.
+
+I have done some pre-processing to create a revised `peng` dataset, to: 
+
+* make variable names simpler for display in plots (remove units), and
+* deleting observations with missing data.
+
+This code has already been run; it uses
+uses functions from the **dplyr** and **tidyr** packages. You should be able
+to read this and understand roughly what it is doing, but this topic is beyond the scope
+of this course.
+
+```{r eval=FALSE}
+library(palmerpenguins)
+peng <- penguins %>%
+  rename(
+    bill_length = bill_length_mm, 
+    bill_depth = bill_depth_mm, 
+    flipper_length = flipper_length_mm, 
+    body_mass = body_mass_g
+  ) %>%
+  mutate(species = as.factor(species),
+         island = as.factor(island),
+         sex = as.factor(substr(sex,1,1))) %>%
+  filter(!is.na(bill_depth),
+         !is.na(sex))
+```
+
+We'll work with the resulting dataset, named `peng` here.
+
+```{r peng, echo = TRUE}
+car::some(peng, 8)
+```
+
+What R function can you use to find out the number of observations in this data set? 
+
+```{r peng-q1, exercise=TRUE}
+____(peng)
+```
+
+```{r peng-q1-solution}
+nrow(peng)
+```
+
+Before going on, it is useful to see the number of observations for each species, 
+
+```{r peng-species}
+table(peng$species)
+```
+
+or broken down by another factor, like `island`. How would you extend this to show the
+cross-classification of `species` and `island`?
+
+```{r peng_sp_is, exercise=TRUE}
+table(peng$species, peng$_____)
+```
+
+```{r peng_sp_is-solution}
+table(peng$species, peng$island)
+```
+
+
+
+## Scatterplot matrix
+
+To get an overview of the data, let's use `car::scatterplotMatrix` to show all pairwise plots of the
+size variables.
+
+```{r spm0, w=7, h=7}
+scatterplotMatrix(~ bill_length + bill_depth + flipper_length + body_mass,
+                  data=peng)
+```
+
+That's not very nice, because it conceals the differences among species.
+Run this again, but conditioning the plots by `species`.
+
+```{r spm1, exercise=TRUE}
+scatterplotMatrix(~ bill_length + bill_depth + flipper_length + body_mass | _______ ,
+                  data=peng)
+```
+
+```{r spm1-solution, w=7, h=7}
+scatterplotMatrix(~ bill_length + bill_depth + flipper_length + body_mass | species ,
+                  data=peng)
+```
+
+`scatterplotMatrix` has many options to control the details of what
+is plotted. See: `help(scatterplotMatrix)`. I really like data ellipses
+(`ellipse=TRUE`), and then it is less necessary to plot the data points 
+(`plot.points=FALSE`).  Try this.
+
+```{r spm2, exercise=TRUE}
+scatterplotMatrix(~ bill_length + bill_depth + flipper_length + body_mass | species,
+                  data = peng,
+                  ellipse = ____,
+                  plot.points = ____)
+```
+
+```{r spm2-solution}
+scatterplotMatrix(~ bill_length + bill_depth + flipper_length + body_mass | species,
+                  data = peng,
+                  ellipse = TRUE,
+                  plot.points = FALSE)
+```
+
+## Boxplots
+
+Assume the goal is to determine whether/how the penguins differ in _size_ by `species`,
+where the _size_ variables are `bill_length`, `bill_depth`, `flipper_length`, and `body_mass`.
+
+For such data, comparative univariate displays (boxplots, violin plots, ...) of each response
+by species provide a graphic overview.
+
+For a single response variable, this is easy to do with `ggplot`,  using `geom_boxplot()` or
+`geom_violin()`.  
+
+```{r boxp1}
+ggplot(peng, aes(x=species, y=body_mass, fill=species)) +
+  geom_boxplot() +
+  geom_jitter(position=position_jitter(0.1)) +
+  theme(legend.direction = 'horizontal', legend.position = 'top') 
+```
+
+For more than one response variable, you can repeat this code, changing `y=body_mass` to use a different
+variable. Try this for `bill_length`.
+
+```{r boxp2, exercise=TRUE, w=10}
+ggplot(peng, aes(x=species, y=_______, fill=species)) +
+  geom_boxplot() +
+  geom_jitter(position=position_jitter(0.1)) +
+  theme(legend.direction = 'horizontal', legend.position = 'top') 
+```
+
+
+```{r boxp2-solution, w=10}
+ggplot(peng, aes(x=species, y=bill_length, fill=species)) +
+  geom_boxplot() +
+  geom_jitter(position=position_jitter(0.1)) +
+  theme(legend.direction = 'horizontal', legend.position = 'top') 
+```
+
+To see how the species compare on **all** size variables together, it is better to
+compose such plots side-by-side.  This requires us to re-shape the data set from
+"wide" format (responses in multiple colums) to "long" format (responses as multiple
+rows).  
+
+```{r peng-long}
+peng_long <- peng %>% 
+  tidyr::pivot_longer(bill_length:body_mass, 
+                      names_to = "Measure", 
+                      values_to="Size") 
+```
+
+Now, the boxplots for all responses can be described as a plot of `Size` against `species`, with
+separate panels ("facets") for each `Measure`.
+
+```{r boxp3, w=10}
+ggplot(peng_long, aes(x=species, y=Size, fill=species)) +
+  geom_boxplot() + 
+  facet_wrap(. ~ Measure, scales="free_y", nrow=1)
+```
+
+
+## Univariate ANOVAs
+
+Assume the goal is to determine whether/how the penguins differ in _size_ by `species`,
+where the _size_ variables are `bill_length`, `bill_depth`, `flipper_length`, and `body_mass`.
+We could do this for each variable separately.
+
+Fit a univariate ANOVA model for `bill_length`, using `lm()`. Use the car::Anova() function to assess the effect
+of `species`.
+
+```{r lm_bill_len, exercise=TRUE}
+lm1 <-lm(___ ~ ~~~, data=peng ) 
+Anova(lm1)
+```
+
+```{r lm_bill_len-hint}
+lm1 <-lm(bill_length ~ ~~~, data=peng ) 
+Anova(lm1)
+```
+
+```{r lm_bill_len-solution}
+lm1 <-lm(bill_length ~ species, data=peng ) 
+Anova(lm1)
+```
+
+Can you do a similar analysis for `bill_depth` ?
+
+```{r lm_bill_dep, exercise=TRUE}
+lm2 <-lm(bill_depth ~ ~~~, data=peng ) 
+Anova(lm2)
+```
+
+```{r lm_bill_dep-solution}
+lm2 <-lm(bill_depth ~ species, data=peng ) 
+Anova(lm2)
+```
+
+
+### Contrasts
+
+There are $ng=3$ penguin species and the effect of `species` here, with $df=2$ degrees of freedom, can
+be broken down into two separate tests of _contrasts_.
+
+In R, this is accomplished by assigning relative weights to the groups in a matrix with ng rows and
+df columns.
+
+```{r}
+contrasts(peng$species) <- matrix(c(1,-1, 0, 
+                                   -1,-1,-2), nrow=3, ncol=2)
+contrasts(peng$species)
+```
+
+Once this is done, separate tests of the contrasts can be obtained with `car::linearHypothesis()`
+and plotted with `heplot()`.  
+
+
+
+## MANOVA
+
+To carry out a MANOVA, it is only necessary to include the separate response variables
+as `cbind(Y1, Y2, ...)` on the left of the model formula.  Do this for the four _size_
+variables to give a multivariate test.
+
+```{r peng_mlm, exercise=TRUE}
+peng.mlm <-lm(cbind(____, ____, ____, ____) ~ species, data=peng)
+Anova(peng.mlm)
+```
+
+```{r peng_mlm-hint}
+peng.mlm <-lm(cbind(bill_length, bill_depth, ____, ____) ~ species, data=peng)
+Anova(peng.mlm)
+```
+
+```{r peng_mlm-solution}
+peng.mlm <-lm(cbind(bill_length, bill_depth, flipper_length, body_mass) ~ species, data=peng)
+Anova(peng.mlm)
+```
+
+## HE plots
+
+
+
+```{r peng-he, w=6, h=6}
+peng.mlm <-lm(cbind(bill_length, bill_depth, flipper_length, body_mass) ~ species, data=peng)
+heplot(peng.mlm, fill=TRUE, fill.alpha=0.2)
+
+```
+

@@ -1,0 +1,39 @@
+---
+title: 'Exercise: Visualizing Multivariate Data'
+author: "Michael Friendly"
+date: "2/27/2021"
+output: 
+  html_document:
+    code_folding: "hide"
+---
+
+
+```{r setup, include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE,
+                      message = FALSE)
+knitr::set_alias(w = "fig.width", h = "fig.height")
+library(car)
+```
+
+```{r klippy, echo=FALSE, include=TRUE, purl=FALSE}
+klippy::klippy()
+```
+
+```{css, echo=FALSE, purl=FALSE}
+kbd {
+  font-family: monospace;
+  border-radius: 2px;
+  padding: 2px;
+  border: 1px solid black;
+}
+```
+
+# Introduction
+
+The purpose of this exercise is to introduce you to some basic graphical displays
+useful for multivariate, particularly those associated with simple one-way
+MANOVA designs.
+
+## Penguins data
+

@@ -369,16 +369,16 @@ div.tocify {
 <li><p>The following R packages are used:<br />
 broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, palmerpenguins, stargazer, rgl, tidyverse, visreg</p></li>
 </ul>
-<p>You can install all required R packages at once by running the script <a href="R/install-vismlm-pkgs.r">install-vismlm-pkgs.r</a>. Alternativelty, use the following code in the R console:</p>
-<pre class="r"><code>pkgs &lt;- c(&quot;broom&quot;, &quot;candisc&quot;, &quot;car&quot;, &quot;corrgram&quot;, &quot;dplyr&quot;, &quot;effects&quot;, &quot;ggplot2&quot;, &quot;glue&quot;, 
-          &quot;heplots&quot;, &quot;knitr&quot;, &quot;learnr&quot;, &quot;MASS&quot;, &quot;modelsummary&quot;, 
+<p>You can install all required R packages at once by running the script <a href="R/install-vismlm-pkgs.r">install-vismlm-pkgs.r</a>. Alternativelty, use the following code in the R Studio console or from an editor window.</p>
+<pre class="r"><code>pkgs &lt;- c(&quot;broom&quot;, &quot;candisc&quot;, &quot;car&quot;, &quot;corrgram&quot;, &quot;dplyr&quot;, &quot;effects&quot;, &quot;ggplot2&quot;, 
+           &quot;glue&quot;, &quot;heplots&quot;, &quot;knitr&quot;, &quot;learnr&quot;, &quot;MASS&quot;, &quot;modelsummary&quot;, 
           &quot;palmerpenguins&quot;, &quot;stargazer&quot;, &quot;rgl&quot;, &quot;tidyverse&quot;, &quot;visreg&quot;) 
 
 # install the above, along with any dependencies
 install.packages(pkgs, dependencies=TRUE)</code></pre>
 </div>
-<div id="getting-started" class="section level2">
-<h2>1: Getting started</h2>
+<div id="getting-started-linear-models" class="section level2">
+<h2>1: Getting started: Linear Models</h2>
 <center>
 <img src="images/lec1-banner.png" width="450px"/>
 </center>
@@ -434,9 +434,12 @@ install.packages(pkgs, dependencies=TRUE)</code></pre>
 <div id="materials-1" class="section level3">
 <h3>Materials:</h3>
 <ul>
-<li><p><strong>Lecture notes</strong>: <a href="lectures/lecture2.pdf">1up PDF</a> || <a href="lectures/lecture2-2x2.pdf">4up PDF</a></p></li>
-<li><p><strong>Lab exercise</strong>:</p></li>
-<li><p><strong>Examples</strong>:</p>
+<li><strong>Lecture notes</strong>: <a href="lectures/lecture2.pdf">1up PDF</a> || <a href="lectures/lecture2-2x2.pdf">4up PDF</a></li>
+<li><strong>Lab exercise</strong>:
+<ul>
+<li>Visualizing Multivariate Data: Penguins <a href="exercises/penguins-mlm.Rmd">penguins-mlm.Rmd</a> Open this in R Studio &amp; <strong>Run Document</strong>.</li>
+</ul></li>
+<li><strong>Examples</strong>:
 <ul>
 <li>Math scores: HE plot examples <a href="examples/mathscore-ex.R">mathscore-ex.R</a> || <a href="examples/mathscore-ex.html">mathscore-ex.html</a> <!--
 + Penguins data: [penguins-he-ex.R](examples/penguins-he-ex.R) || [penguins-he-ex.html](examples/penguins-he-ex.html)

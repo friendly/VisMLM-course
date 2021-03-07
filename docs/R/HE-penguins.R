@@ -63,16 +63,34 @@ scatterplotMatrix(~ bill_length + bill_depth + flipper_length + body_mass | spec
 ### one response variable
 
 ggplot(peng, aes(x=species, y=body_mass, fill=species)) +
+  geom_boxplot() +
+  geom_jitter(position=position_jitter(0.1)) +
+  theme(legend.direction = 'horizontal', legend.position = 'top') 
+
+ggplot(peng, aes(x=species, y=bill_length, fill=species)) +
+  geom_boxplot() +
+  geom_jitter(position=position_jitter(0.1)) +
+  theme(legend.direction = 'horizontal', legend.position = 'top') 
+
+
+ggplot(peng, aes(x=species, y=body_mass, fill=species)) +
   geom_point() +
   geom_boxplot() +
   facet_wrap(. ~ sex + island) +
   theme(legend.direction = 'horizontal', legend.position = 'top') 
 
 
+
 ### multiple responses
 
 peng_long <- peng %>% 
   tidyr::gather(Measure, Size, bill_length:body_mass) 
+
+peng_long <- peng %>% 
+  tidyr::pivot_longer(bill_length:body_mass, 
+                      names_to = "Measure", 
+                      values_to="Size") 
+
  
 ggplot(peng_long, aes(x=species, y=Size, fill=species)) +
   geom_boxplot() + 
