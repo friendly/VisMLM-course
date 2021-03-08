@@ -8,9 +8,6 @@
 #' ---
 #' 
 
-#' 
-
-#' 
 
 #' 
 #' # Introduction
@@ -169,5 +166,3 @@ avPlots(duncan.mod, id=list(n=2))
 mod.effects <- allEffects(duncan.mod, residuals=TRUE)
 plot(mod.effects, id=list(n=4, col="black"))
 
-#' 
-#'   
