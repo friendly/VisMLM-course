@@ -2,10 +2,6 @@
 #' title: "Simple demo of multivariate linear models"
 #' author: "Michael Friendly"
 #' date: "8 Mar 2021"
-#' output:
-#'   html_document:
-#'     theme: readable
-#'     code_download: true
 #' ---
 
 # load the data & packages

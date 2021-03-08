@@ -89,6 +89,7 @@ install.packages(pkgs, dependencies=TRUE)
   + Visualizing Multivariate Data: Penguins [penguins-mlm.Rmd](exercises/penguins-mlm.Rmd) Open this in R Studio & **Run Document**. 
 
 - **Examples**:
+  + Math scores: Simple demo of MLMs [mathscore-simple.R]((examples/mathscore-simple.R))
   + Math scores: HE plot examples [mathscore-ex.R](examples/mathscore-ex.R) || [mathscore-ex.html](examples/mathscore-ex.html)
 <!--
   + Penguins data: [penguins-he-ex.R](examples/penguins-he-ex.R) || [penguins-he-ex.html](examples/penguins-he-ex.html)
