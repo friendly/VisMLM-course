@@ -51,15 +51,16 @@ install.packages(pkgs, dependencies=TRUE)
 
 ### Materials:
 
-- **Lecture notes**: [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) 
-- **Lab exercise**: 
+- **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) || 
+  `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/pwac9ufsbz1r4l1/VisMLM-Lecture1.mp4?dl=0)
+- **Lab exercise**: `r icon::fa("running")`
   + Visualizing regression models [duncan-reg.html](exercises/duncan-reg.html) || [duncan-reg.R](exercises/duncan-reg.R)
 
-- **Examples**: 
+- **Examples**: `r icon::fa("laptop-code")`
   + Prestige data [prestige-ex.R](examples/prestige-ex.R) || [prestige-ex.html](examples/prestige-ex.html) 
   + Penguin data [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html) 
 
-### Learning more
+### Learning more `r icon::fa("chalkboard-teacher")`
 
 - [Building better tables in R](https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/) How to make tables people ACTUALY want to read.
 - [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)
@@ -84,7 +85,7 @@ install.packages(pkgs, dependencies=TRUE)
 - HEplot framework
 
 ### Materials:
-- **Lecture notes**: [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf)
+- **Lecture notes**: [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0)
 - **Lab exercise**:
   + Visualizing Multivariate Data: Penguins [penguins-mlm.Rmd](exercises/penguins-mlm.Rmd) Open this in R Studio & **Run Document**. 
 
