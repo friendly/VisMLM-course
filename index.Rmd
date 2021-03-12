@@ -49,18 +49,18 @@ install.packages(pkgs, dependencies=TRUE)
 - Effect plots 
 - Diagnostic plots
 
-### Materials:
+### Materials: 
 
 - **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) || 
   `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/pwac9ufsbz1r4l1/VisMLM-Lecture1.mp4?dl=0)
-- **Lab exercise**: `r icon::fa("running")`
+- **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing regression models [duncan-reg.html](exercises/duncan-reg.html) || [duncan-reg.R](exercises/duncan-reg.R)
 
-- **Examples**: `r icon::fa("laptop-code")`
+- **Examples**: `r icon::fa("laptop-code", color="red")`
   + Prestige data [prestige-ex.R](examples/prestige-ex.R) || [prestige-ex.html](examples/prestige-ex.html) 
   + Penguin data [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html) 
 
-### Learning more `r icon::fa("chalkboard-teacher")`
+### Learning more `r icon::fa("chalkboard-teacher", color="red")`
 
 - [Building better tables in R](https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/) How to make tables people ACTUALY want to read.
 - [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)
@@ -85,11 +85,11 @@ install.packages(pkgs, dependencies=TRUE)
 - HEplot framework
 
 ### Materials:
-- **Lecture notes**: [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0)
-- **Lab exercise**:
+- **Lecture notes**: `r icon::fa("file-pdf", color="red")`  [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0)
+- **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing Multivariate Data: Penguins [penguins-mlm.Rmd](exercises/penguins-mlm.Rmd) Open this in R Studio & **Run Document**. 
 
-- **Examples**:
+- **Examples**: `r icon::fa("laptop-code", color="red")`
   + Math scores: Simple demo of MLMs [mathscore-simple.R]((examples/mathscore-simple.R))
   + Math scores: HE plot examples [mathscore-ex.R](examples/mathscore-ex.R) || [mathscore-ex.html](examples/mathscore-ex.html)
 <!--
@@ -99,7 +99,7 @@ install.packages(pkgs, dependencies=TRUE)
   + Diabetes data: [heplots and candisc examples vignette](https://cran.r-project.org/web/packages/candisc/vignettes/diabetes.html) 
 
 
-### Learning more
+### Learning more `r icon::fa("chalkboard-teacher", color="red")`
 
 - Fox, Friendly & Weisberg (2013), *Hypothesis Tests for Multivariate
 Linear Models Using the car Package* http://www.datavis.ca/papers/Fox+Friendly+Weisberg.pdf
@@ -125,18 +125,19 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
 - Homogeneity of covariance matrices
 
 ### Materials:
-- **Lecture notes**: [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf)
-- **Lab exercise**: 
+- **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf)
+- **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing MMRA Models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R)
 
-- **Examples**: 
+- **Examples**: `r icon::fa("laptop-code", color="red")`
   + Neuro Cognitive measures [NeuroCog-ex.R](examples/NeuroCog-ex.R) || [NeuroCog-ex.html](examples/NeuroCog-ex.html) 
   + Social cognition measures [SC-ex.R](examples/SC-ex.R) || [SC-ex.html](examples/SC-ex.html)
   + Rohwer MMRA data [Rohwer-MMRA-ex.R](examples/Rohwer-MMRA-ex.R) || [Rohwer-MMRA-ex.html](examples/Rohwer-MMRA-ex.html)
 
-<!-- - **Lab exercise**: TBA -->
+- **Lab exercise**: `r icon::fa("laptop-code", color="red")`
+  + Visualizing MMRA models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [exercises/rohwer-mmra.R](exercises/rohwer-mmra.R)
 
-### Learning more
+### Learning more `r icon::fa("chalkboard-teacher", color="red")`
 
 - Friendly & Sigal (2016) *Analysis of Rohwer Data with MANCOVA*, https://rpubs.com/friendly/Rohwer-MANCOVA-ex  
 - Friendly & Sigal (2018) *Visualizing Tests for Equality of Covariance Matrices* http://www.datavis.ca/papers/EqCov-TAS.pdf
