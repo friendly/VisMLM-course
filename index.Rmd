@@ -87,6 +87,7 @@ install.packages(pkgs, dependencies=TRUE)
 
 ### Materials:
 - **Lecture notes**: `r icon::fa("file-pdf", color="red")`  [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0)
+- **Bonus lecture**: [PCA-animation](lectures/PCA-animation.pptx)
 - **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing Multivariate Data: Penguins [penguins-mlm.Rmd](exercises/penguins-mlm.Rmd) Open this in R Studio & **Run Document**. 
 
