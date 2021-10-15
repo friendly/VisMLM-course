@@ -3,6 +3,7 @@ data(Duncan) # example data
 m1 = lm(prestige ~ income + education + type, data=Duncan)
 library(arm) # for coefplot()
 coefplot(m1, vertical=FALSE, mar=c(5.5,2.5,2,2))
+coefplot(m1, mar=c(5.5,2.5,2,2))
 
 # highlight prestige.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style seashell --font 'Courier Regular' --font-size 16 > prestige.rtf
 
@@ -10,7 +11,6 @@ coefplot(m1, vertical=FALSE, mar=c(5.5,2.5,2,2))
 library("car") 
 data(Prestige)
 Prestige$type <- factor(Prestige$type, levels=c("bc", "wc", "prof")) # reorder levels
-Prestige$type <- ordered(Prestige$type, levels=c("bc", "wc", "prof")) # reorder levels
 head(Prestige)
 
 # prex_rtf()
@@ -60,8 +60,30 @@ scatterplotMatrix(~ prestige + education + income + women ,
                               lty.smooth=1, lwd.smooth=3, col.smooth="red"),
                   ellipse=list(levels=0.68, fill.alpha=0.1))
 
+# simple model
+data(Prestige, package="carData")
+library(modelsummary)
+library(dplyr)
+mod0 <- lm(prestige ~ education + income + women,
+           data=Prestige)
+summary(mod0)
+
+
+modelplot(mod0, coef_omit="Intercept", color="blue", size=1) +
+  labs(title="Raw coefficients for mod0")
+
+# plot model coefficients, but using standardized variables
+Prestige_std <- Prestige %>%
+  as_tibble() %>%
+  mutate(across(where(is.numeric), scale))
+mod0_std <- lm(prestige ~ education + income + women,
+           data=Prestige_std)
+
+modelplot(mod0_std, coef_omit="Intercept", color="blue", size=1) +
+  labs(title="Standardized coefficients for mod0")
+
+
 # basic all main effects model
-data(Prestige)
 mod0 <- lm(prestige ~ education + income + women + type,
            data=Prestige)
 
@@ -69,13 +91,18 @@ summary(mod0)
 
 
 
-mod1 <- lm(prestige ~ education + poly(women, 2) +
-                     log(income)*type, data=Prestige)
+# mod1 <- lm(prestige ~ education + poly(women, 2) +
+#                      log(income)*type, data=Prestige)
+# use only linear in women
+mod1 <- lm(prestige ~ education + women +
+             log(income)*type, data=Prestige)
+
+
 summary(mod1)
 
 
-arm::coefplot(mod0)
-arm::coefplot(mod1, add=TRUE)
+arm::coefplot(mod0, col.pts="red", cex.pts=1.5)
+arm::coefplot(mod1, add=TRUE, col.pts="blue", cex.pts=1.5)
 
 anova(mod0, mod1)
 

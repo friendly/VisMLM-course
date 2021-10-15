@@ -1,7 +1,7 @@
 #' ---
 #' title: "Linear models example: Occupational Prestige data"
 #' author: "Michael Friendly"
-#' date: "15 Nov 2021"
+#' date: "`r format(Sys.Date())`"
 #' output:
 #'   html_document:
 #'     theme: readable
