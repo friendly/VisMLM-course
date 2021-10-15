@@ -1,7 +1,7 @@
 #' ---
 #' title: "Linear models example: Occupational Prestige data"
 #' author: "Michael Friendly"
-#' date: "11 Feb 2021"
+#' date: "15 Nov 2021"
 #' output:
 #'   html_document:
 #'     theme: readable
@@ -45,7 +45,7 @@ scatterplotMatrix(~ prestige + education + income + women ,
                   ellipse=list(levels=0.68, fill.alpha=0.1))
 
 
-#' ## fancy scatterplots
+#' ## Fancy scatterplots
 
 #' `car::scatterplot` has many options to add informative annotations, label unusual points, etc.
 #' This plot shows clearly that income is positively skewed and the relation with `prestige` is non-linear.
@@ -97,18 +97,24 @@ summary(mod0)
 
 #' ## Add more complex terms
 #' 
-#' Here we allow that %women might have a quadratic relation to prestige,
-#' that income is best modeled on a log scale, and that log(income)
-#' interacts with occupation `type`.
-mod1 <- lm(prestige ~ education + poly(women, 2) +
+#' Here we model income as `log(income)``
+#' and allow an interaction
+#' with occupation `type`.
+mod1 <- lm(prestige ~ education + women +
                      log(income)*type, data=Prestige)
 summary(mod1)
 
 #' ## Plot coefficients
 #' 
-#' Plots of coefficients with CI often more informative that tables of coefficients.
-arm::coefplot(mod0)
-arm::coefplot(mod1, add=TRUE)
+#' Plots of coefficients with CI often more informative that tables of coefficients. 
+#' These intervals are shown for $\pm 1, \pm 2$ standard errors.
+#' 
+#' However,
+#' this plots the _raw coefficients_, which are on different scales, so the small coefficients
+#' for `income` do not appear to be significant.  It would be better if there was an option
+#' to plot standardized ($\beta$) coefficients.
+arm::coefplot(mod0, col.pts="red", cex.pts=1.5)
+arm::coefplot(mod1, add=TRUE, col.pts="blue", cex.pts=1.5)
 
 #' ## Compare model fits
 #' 

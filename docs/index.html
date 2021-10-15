@@ -366,12 +366,12 @@ div.tocify {
 <li><p>A recent version of R, <a href="https://cloud.r-project.org/">download from here.</a></p></li>
 <li><p>A recent version of RStudio, <a href="https://rstudio.com/products/rstudio/download/#download">download from here.</a></p></li>
 <li><p>The following R packages are used:<br />
-broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, palmerpenguins, stargazer, rgl, tidyverse, visreg</p></li>
+broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, mvinfluence, palmerpenguins, stargazer, rgl, tidyverse, visreg</p></li>
 </ul>
 <p>You can install all required R packages at once by running the script <a href="R/install-vismlm-pkgs.r">install-vismlm-pkgs.r</a>. Alternativelty, use the following code in the R Studio console or from an editor window.</p>
 <pre class="r"><code>pkgs &lt;- c(&quot;broom&quot;, &quot;candisc&quot;, &quot;car&quot;, &quot;corrgram&quot;, &quot;dplyr&quot;, &quot;effects&quot;, &quot;ggplot2&quot;, 
-           &quot;glue&quot;, &quot;heplots&quot;, &quot;knitr&quot;, &quot;learnr&quot;, &quot;MASS&quot;, &quot;modelsummary&quot;, 
-          &quot;palmerpenguins&quot;, &quot;stargazer&quot;, &quot;rgl&quot;, &quot;tidyverse&quot;, &quot;visreg&quot;) 
+          &quot;glue&quot;, &quot;heplots&quot;, &quot;knitr&quot;, &quot;learnr&quot;, &quot;MASS&quot;, &quot;modelsummary&quot;,
+          &quot;mvinfluence&quot;, &quot;palmerpenguins&quot;, &quot;stargazer&quot;, &quot;rgl&quot;, &quot;tidyverse&quot;, &quot;visreg&quot;) 
 
 # install the above, along with any dependencies
 install.packages(pkgs, dependencies=TRUE)</code></pre>
@@ -434,6 +434,7 @@ install.packages(pkgs, dependencies=TRUE)</code></pre>
 <h3>Materials:</h3>
 <ul>
 <li><strong>Lecture notes</strong>: <i class="fas  fa-file-pdf " style="color:red;"></i> <a href="lectures/lecture2.pdf">1up PDF</a> || <a href="lectures/lecture2-2x2.pdf">4up PDF</a> || <i class="fas  fa-video " style="color:red;"></i> <a href="https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0">video</a></li>
+<li><strong>Bonus lecture</strong>: <a href="lectures/PCA-animation.pptx">PCA-animation</a></li>
 <li><strong>Lab exercise</strong>: <i class="fas  fa-rocket " style="color:red;"></i>
 <ul>
 <li>Visualizing Multivariate Data: Penguins <a href="exercises/penguins-mlm.Rmd">penguins-mlm.Rmd</a> Open this in R Studio &amp; <strong>Run Document</strong>.</li>

@@ -1,7 +1,7 @@
 ---
 title: "Visualizing Linear Models: An R Bag of Tricks"
 author: "Michael Friendly"
-date: "Mar, 2021"
+date: "Oct-Nov, 2021"
 output:
   html_document:
     toc: true
