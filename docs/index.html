@@ -297,12 +297,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -321,21 +321,21 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home fa-2x"></span>
+    <span class="fa fa-home fa-2x"></span>
      
     Home
   </a>
 </li>
 <li>
   <a href="about.html">
-    <span class="fas fa-file  fa-2x"></span>
+    <span class="fa fa-file  fa-2x"></span>
      
     About
   </a>
 </li>
 <li>
   <a href="resources.html">
-    <span class="fas fa-book  fa-2x"></span>
+    <span class="fa fa-book  fa-2x"></span>
      
     Resources
   </a>
@@ -354,7 +354,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Visualizing Linear Models: An R Bag of Tricks</h1>
 <h4 class="author">Michael Friendly</h4>
-<h4 class="date">Mar, 2021</h4>
+<h4 class="date">Oct-Nov, 2021</h4>
 
 </div>
 
@@ -366,10 +366,10 @@ div.tocify {
 <li><p>A recent version of R, <a href="https://cloud.r-project.org/">download from here.</a></p></li>
 <li><p>A recent version of RStudio, <a href="https://rstudio.com/products/rstudio/download/#download">download from here.</a></p></li>
 <li><p>The following R packages are used:<br />
-broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, mvinfluence, palmerpenguins, stargazer, rgl, tidyverse, visreg</p></li>
+arm, broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, mvinfluence, palmerpenguins, stargazer, rgl, tidyverse, visreg</p></li>
 </ul>
 <p>You can install all required R packages at once by running the script <a href="R/install-vismlm-pkgs.r">install-vismlm-pkgs.r</a>. Alternativelty, use the following code in the R Studio console or from an editor window.</p>
-<pre class="r"><code>pkgs &lt;- c(&quot;broom&quot;, &quot;candisc&quot;, &quot;car&quot;, &quot;corrgram&quot;, &quot;dplyr&quot;, &quot;effects&quot;, &quot;ggplot2&quot;, 
+<pre class="r"><code>pkgs &lt;- c(&quot;arm&quot;, broom&quot;, &quot;candisc&quot;, &quot;car&quot;, &quot;corrgram&quot;, &quot;dplyr&quot;, &quot;effects&quot;, &quot;ggplot2&quot;, 
           &quot;glue&quot;, &quot;heplots&quot;, &quot;knitr&quot;, &quot;learnr&quot;, &quot;MASS&quot;, &quot;modelsummary&quot;,
           &quot;mvinfluence&quot;, &quot;palmerpenguins&quot;, &quot;stargazer&quot;, &quot;rgl&quot;, &quot;tidyverse&quot;, &quot;visreg&quot;) 
 
@@ -554,6 +554,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
