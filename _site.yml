@@ -20,3 +20,9 @@ navbar:
     - text: "Resources"
       icon: fa-book  fa-2x
       href: resources.html
+  right:
+    - icon: fab fa-github
+      href: https://github.com/friendly/VisMLM
+    - icon: fab fa-twitter
+      href: https://twitter.com/datavisFriendly
+

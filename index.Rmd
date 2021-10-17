@@ -59,7 +59,8 @@ install.packages(pkgs, dependencies=TRUE)
 
 - **Examples**: `r icon::fa("laptop-code", color="red")`
   + Prestige data [prestige-ex.R](examples/prestige-ex.R) || [prestige-ex.html](examples/prestige-ex.html) 
-  + Penguin data [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html) 
+  + Penguin data [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html)
+  + Coefficient plots [coefplots-demo.R](examples/coefplots-demo.R) || [coefplots-demo.html](examples/coefplots-demo.html)
 
 ### Learning more `r icon::fa("chalkboard-teacher", color="red")`
 
