@@ -9,7 +9,8 @@ local({r <- getOption("repos")
 # list of packages to install
 pkgs <- c("arm", "broom", "candisc", "car", "corrgram", "dplyr", "effects", "ggbiplot", 
           "ggplot2", "glue",  "heplots", "knitr", "learnr", "MASS", "modelsummary", 
-          "palmerpenguins", "stargazer", "rgl", "tidyverse", "visreg") 
+          "palmerpenguins", "stargazer", "rgl", "rpart", "rpart.plot",
+          "tidyverse", "visreg") 
 
 # install the above, along with any dependencies
 install.packages(pkgs, dependencies=TRUE)

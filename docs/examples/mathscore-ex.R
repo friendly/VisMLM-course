@@ -1,7 +1,11 @@
 #' ---
 #' title: "Math scores: HE plot examples"
 #' author: "Michael Friendly"
-#' date: "12 Oct 2020"
+#' date: "`r format(Sys.Date())`"
+#' output:
+#'   html_document:
+#'     theme: readable
+#'     code_download: true
 #' ---
 
 #+ echo=FALSE

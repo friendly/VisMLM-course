@@ -64,7 +64,7 @@ library(heplots)
 library(candisc)
 ```
 
-This exercise uses the **learnr** package.  
+This exercise uses the [**learnr**](https://rstudio.github.io/learnr/) package.  
 
 ## Penguins data
 
@@ -240,7 +240,7 @@ Assume the goal is to determine whether/how the penguins differ in _size_ by `sp
 where the _size_ variables are `bill_length`, `bill_depth`, `flipper_length`, and `body_mass`.
 We could do this for each variable separately.
 
-Fit a univariate ANOVA model for `bill_length`, using `lm()`. Use the car::Anova() function to assess the effect
+Fit a univariate ANOVA model for `bill_length`, using `lm()`. Use the `car::Anova()` function to assess the effect
 of `species`.
 
 ```{r lm_bill_len, exercise=TRUE}
