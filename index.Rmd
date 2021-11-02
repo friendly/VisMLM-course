@@ -68,6 +68,9 @@ install.packages(pkgs, dependencies=TRUE)
 - [Building better tables in R](https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/) How to make tables people ACTUALY want to read.
 - [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)
 - [Visualizing Trends of Multivariate Data in R using ggplot2](https://towardsdatascience.com/visualizing-trends-of-multivariate-data-in-r-using-ggplot2-1b85409afcfb)
+- [Claus Wilke, SDS 375/395 Data Visualization in R](https://wilkelab.org/SDS375/)
+This is a comprehensive course in R graphics (mainly ggplot2 & friends), 
+based on Wilke's [_Fundamentals of Data Visualization_](https://clauswilke.com/dataviz/).
 - Effect plots are illustrated in the 
 [predictor effects gallery vignette](https://cran.r-project.org/web/packages/effects/vignettes/predictor-effects-gallery.pdf)
 - [Visreg:  An R package for the visualization of regression models](https://pbreheny.github.io/visreg/)
