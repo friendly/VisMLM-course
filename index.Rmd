@@ -91,7 +91,8 @@ based on Wilke's [_Fundamentals of Data Visualization_](https://clauswilke.com/d
 - HEplot framework
 
 ### Materials:
-- **Lecture notes**: `r icon::fa("file-pdf", color="red")`  [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0)
+- **Lecture notes**: `r icon::fa("file-pdf", color="red")`  [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` <!--[video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0) -->
+[video](https://yorku.zoom.us/rec/share/s5EdZh0EJpnRdSv-YwBRQ_UIfeRxSYT0HbjBIIpboI4Fq3hCH2pbeIOADcdNKR0E.R6Nn0XfrvsXdG2c3)
 - **Bonus lecture**: [PCA-animation](lectures/PCA-animation.pptx)
 - **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing Multivariate Data: Penguins [penguins-mlm.Rmd](exercises/penguins-mlm.Rmd) Open this in R Studio & **Run Document**. 
