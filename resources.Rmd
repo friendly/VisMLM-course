@@ -67,6 +67,9 @@ For learning more about basic and advanced plotting using R:
 the steps of installing R and R Studio.
 
 
+## Other links
+
+* Students in this course can book a [consulting appointment](http://www.appointmentquest.com/provider/2000199121) with the Statistical Consulting Service for advice on data analysis for their research.
 
 
 
