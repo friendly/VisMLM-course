@@ -132,7 +132,10 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
 ### Topics:
 
 - MANOVA
+  + Robust MLMs
 - MMREG
+  + Canonical correlations
+  + MANCOVA and homogeneity of regression
 - Homogeneity of covariance matrices
 
 ### Materials:
@@ -145,8 +148,6 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
   + Social cognition measures [SC-ex.R](examples/SC-ex.R) || [SC-ex.html](examples/SC-ex.html)
   + Rohwer MMRA data [Rohwer-MMRA-ex.R](examples/Rohwer-MMRA-ex.R) || [Rohwer-MMRA-ex.html](examples/Rohwer-MMRA-ex.html)
 
-- **Lab exercise**: `r icon::fa("laptop-code", color="red")`
-  + Visualizing MMRA models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [exercises/rohwer-mmra.R](exercises/rohwer-mmra.R)
 
 ### Learning more `r icon::fa("chalkboard-teacher", color="red")`
 
