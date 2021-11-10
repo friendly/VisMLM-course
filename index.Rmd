@@ -54,7 +54,10 @@ install.packages(pkgs, dependencies=TRUE)
 ### Materials: 
 
 - **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) || 
-  `r icon::fa("video", color="red")` [video](https://www.dropbox.com/s/pwac9ufsbz1r4l1/VisMLM-Lecture1.mp4?dl=0)
+  `r icon::fa("video", color="red")` 
+<!-- [video](https://www.dropbox.com/s/pwac9ufsbz1r4l1/VisMLM-Lecture1.mp4?dl=0) -->
+[video](https://yorku.zoom.us/rec/share/s5EdZh0EJpnRdSv-YwBRQ_UIfeRxSYT0HbjBIIpboI4Fq3hCH2pbeIOADcdNKR0E.R6Nn0XfrvsXdG2c3)
+
 - **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing regression models [duncan-reg.html](exercises/duncan-reg.html) || [duncan-reg.R](exercises/duncan-reg.R)
 
@@ -92,7 +95,7 @@ based on Wilke's [_Fundamentals of Data Visualization_](https://clauswilke.com/d
 
 ### Materials:
 - **Lecture notes**: `r icon::fa("file-pdf", color="red")`  [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` <!--[video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0) -->
-[video](https://yorku.zoom.us/rec/share/s5EdZh0EJpnRdSv-YwBRQ_UIfeRxSYT0HbjBIIpboI4Fq3hCH2pbeIOADcdNKR0E.R6Nn0XfrvsXdG2c3)
+[video](https://yorku.zoom.us/rec/share/2x9weUryqUE_2BoUuG2Gz2gohNUbzYditDTQIFcZ0ETzjxpnQSXizsTZTQEHBREg.FI0Fl9SJELfQFeMd)
 - **Bonus lecture**: [PCA-animation](lectures/PCA-animation.pptx)
 - **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing Multivariate Data: Penguins [penguins-mlm.Rmd](exercises/penguins-mlm.Rmd) Open this in R Studio & **Run Document**. 
