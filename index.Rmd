@@ -139,7 +139,7 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
 - Homogeneity of covariance matrices
 
 ### Materials:
-- **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf)
+- **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf) || `r icon::fa("video", color="red")` [video](https://yorku.zoom.us/rec/share/Yultmv1l9E85GQaL9IqKCHkx8vgdJsDAnSUx1YyfBXQi3HbgDIHxFI5-a0Bo7OL9._xnvnmPhB_81bpVQ)
 - **Lab exercise**: `r icon::fa("rocket", color="red")`
   + Visualizing MMRA Models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R)
 
