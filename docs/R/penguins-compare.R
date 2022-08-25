@@ -1,6 +1,13 @@
-library(parameters)
-library(performance)
-library(see)
+---
+  #' title: Comparing models, Penguins data
+---
+
+
+library(parameters)     # Processing of Model Parameters
+library(performance)    # Assessment of Regression Models Performance
+library(see)            # Model Visualisation Toolbox for 'easystats' and 'ggplot2'
+library(car)            # Companion to Applied Regression (for Anova)
+
 
 
 load("data/peng.RData")
@@ -37,5 +44,6 @@ compare_performance(peng.mod0, peng.mod1, peng.mod2)
 compare_performance(peng.mod0, peng.mod1, peng.mod2, rank=TRUE)
 
 # plot method
-plot(compare_performance(peng.mod0, peng.mod1, peng.mod2, rank=TRUE))
+plot(compare_performance(peng.mod0, peng.mod1, peng.mod2, rank=TRUE), size_line=2)
+
 

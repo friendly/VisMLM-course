@@ -13,6 +13,7 @@
 
 <title>About This Course</title>
 
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -57,6 +58,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
 
@@ -81,6 +83,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -138,11 +143,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -233,7 +242,7 @@ $(document).ready(function () {
 <div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -294,27 +303,53 @@ $(document).ready(function () {
 <div id="instructor" class="section level2">
 <h2>Instructor</h2>
 <ul>
-<li>Michael Friendly <a href="http://datavis.ca">datavis.ca home page</a></li>
-<li>Email: friendly AT yorku DOT ca <i class="fas  fa-envelope-square "></i></li>
-<li>Twitter: <a href="http://twitter.com/datavisFriendly">datavisFriendly</a> <i class="fab  fa-twitter "></i></li>
+<li>Michael Friendly <a href="http://datavis.ca">datavis.ca home
+page</a></li>
+<li>Email: friendly AT yorku DOT ca</li>
+</ul>
+<i class="fas  fa-envelope-square "></i>
+<ul>
+<li>Twitter: <a
+href="http://twitter.com/datavisFriendly">datavisFriendly</a></li>
+</ul>
+<i class="fab  fa-twitter "></i>
+<ul>
 <li>Office: 226 BSB</li>
-<li>Course web site: <a href="https://friendly.github.io/VisMLM-course/">https://friendly.github.io/VisMLM-course/</a></li>
+<li>Course web site: <a
+href="https://friendly.github.io/VisMLM-course/">https://friendly.github.io/VisMLM-course/</a></li>
 </ul>
 </div>
 <div id="dates-location" class="section level2">
 <h2>Dates / Location</h2>
-<p><em>Dates/ Time</em> Mon: Mar. 1, 8, 15; 2:30pm - 5:30pm <em>Zoom</em></p>
+<p><em>Dates/ Time</em> Mon: Mar. 1, 8, 15; 2:30pm - 5:30pm
+<em>Zoom</em></p>
 </div>
 <div id="course-description" class="section level2">
 <h2>Course Description</h2>
-<p>OK, so you ran your ANOVA, multiple regression (MRA), or multivariate counterparts (MANOVA, MMRA), but now you need to visualize the results to both understand them and communicate. Who you gonna run to? – R of course.</p>
-<p>This course covers data visualization methods designed to convert models and tables into insightful graphs.</p>
+<p>OK, so you ran your ANOVA, multiple regression (MRA), or multivariate
+counterparts (MANOVA, MMRA), but now you need to visualize the results
+to both understand them and communicate. Who you gonna run to? – R of
+course.</p>
+<p>This course covers data visualization methods designed to convert
+models and tables into insightful graphs.</p>
 <ul>
-<li><p>It starts with a review of graphical methods for univariate linear models—data plots, model (effect) plots and diagnostic plots. A brief introduction to multivariate linear models uses data ellipses (or ellipsoids) as visual summaries of 2D (or 3+ D) of multivariate relations.</p></li>
-<li><p>The Hypothesis-Error (HE) framework provides a set of tools for visualizing effects of predictors in multivariate linear models. I give some examples of HEplots for MANOVA and MMRA designs.</p></li>
-<li><p>Finally, if time permits, some model diagnostic plots for detecting multivariate outliers and lack of homogeneity of (co)variances will be described.</p></li>
+<li><p>It starts with a review of graphical methods for univariate
+linear models—data plots, model (effect) plots and diagnostic plots. A
+brief introduction to multivariate linear models uses data ellipses (or
+ellipsoids) as visual summaries of 2D (or 3+ D) of multivariate
+relations.</p></li>
+<li><p>The Hypothesis-Error (HE) framework provides a set of tools for
+visualizing effects of predictors in multivariate linear models. I give
+some examples of HEplots for MANOVA and MMRA designs.</p></li>
+<li><p>Finally, if time permits, some model diagnostic plots for
+detecting multivariate outliers and lack of homogeneity of (co)variances
+will be described.</p></li>
 </ul>
-<p>Participants should have a background in statistics including a course in linear models (ANOVA, multiple regression). In addition, they should have some familiarity with using R and R Studio, such as the SCS course, An Introduction to R and the Tidyverse or equivalent. A web page for the course will give access to lecture notes and resources.</p>
+<p>Participants should have a background in statistics including a
+course in linear models (ANOVA, multiple regression). In addition, they
+should have some familiarity with using R and R Studio, such as the SCS
+course, An Introduction to R and the Tidyverse or equivalent. A web page
+for the course will give access to lecture notes and resources.</p>
 </div>
 
 &nbsp;
