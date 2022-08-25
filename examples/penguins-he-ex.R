@@ -172,13 +172,18 @@ pairs(peng.mod0, size="effect", fill=c(TRUE, FALSE),
 
 ### Add other predictors
 
-peng.mod2 <-lm(cbind(bill_length, bill_depth, flipper_length, body_mass) ~ species + sex, data=peng)
+peng.mod2 <-lm(cbind(bill_length, bill_depth, flipper_length, body_mass) ~ species + sex, 
+               data=peng)
 Anova(peng.mod2)
 
-heplot(peng.mod2, size="effect", fill=TRUE, fill.alpha=0.2)
+hyp <- list("A:C"="species1","AC:G"="species2")
+op <- par(mar=c(4,4,1,1)+0.1)
+heplot(peng.mod2, size="effect", fill=TRUE, fill.alpha=0.2, hypotheses=hyp)
+par(op)
 
-peng.mod3 <-lm(cbind(bill_length, bill_depth, flipper_length, body_mass) ~ species : sex, data=peng)
+peng.mod3 <-lm(cbind(bill_length, bill_depth, flipper_length, body_mass) ~ species + sex + island, data=peng)
 Anova(peng.mod3)
+heplot(peng.mod3, size="effect", fill=TRUE, fill.alpha=0.2)
 
 
 #' ## Canonical discriminant analysis

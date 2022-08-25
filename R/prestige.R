@@ -1,9 +1,9 @@
-library(car) # for the example data
-data(Duncan) # example data
-m1 = lm(prestige ~ income + education + type, data=Duncan)
-library(arm) # for coefplot()
-coefplot(m1, vertical=FALSE, mar=c(5.5,2.5,2,2))
-coefplot(m1, mar=c(5.5,2.5,2,2))
+#library(car) # for the example data
+# data(Duncan) # example data
+# m1 = lm(prestige ~ income + education + type, data=Duncan)
+# library(arm) # for coefplot()
+# coefplot(m1, vertical=FALSE, mar=c(5.5,2.5,2,2))
+# coefplot(m1, mar=c(5.5,2.5,2,2))
 
 # highlight prestige.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style seashell --font 'Courier Regular' --font-size 16 > prestige.rtf
 
@@ -16,12 +16,12 @@ head(Prestige)
 # prex_rtf()
 
 
-ggplotColours <- function(n = 6, h = c(0, 360) + 15){
-  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n
-  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)
-}
+# ggplotColours <- function(n = 6, h = c(0, 360) + 15){
+#   if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n
+#   hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)
+# }
 
-# fancy scatterplots
+# car: fancy scatterplots
 
 scatterplot(prestige ~ income, data=Prestige,
             pch = 16,
@@ -76,11 +76,24 @@ modelplot(mod0, coef_omit="Intercept", color="blue", size=1) +
 Prestige_std <- Prestige %>%
   as_tibble() %>%
   mutate(across(where(is.numeric), scale))
-mod0_std <- lm(prestige ~ education + income + women,
-           data=Prestige_std)
+
+mod0_std <- lm(prestige ~ education + women + income,
+               data=Prestige_std)
 
 modelplot(mod0_std, coef_omit="Intercept", color="blue", size=1) +
   labs(title="Standardized coefficients for mod0")
+
+mod1_std<- lm(prestige ~ education + women + income*type, 
+              data=Prestige_std)
+
+modelplot(list("mod0" = mod0_std, "mod1" = mod1_std), 
+          coef_omit="Intercept", size=1.3) +
+  labs(title="Standardized coefficients") +
+  geom_vline(xintercept = 0, size=1.5) +
+  scale_y_discrete(limits=rev) +
+  theme_bw(base_size = 16) +
+  theme(legend.position = c(0.9, 0.2))
+
 
 
 # basic all main effects model
@@ -89,6 +102,11 @@ mod0 <- lm(prestige ~ education + income + women + type,
 
 summary(mod0)
 
+# log2 coefficient
+mod_log <- lm(prestige ~ log2(income), data=Prestige)
+summary(mod_log)
+options(digits=3)
+coef(mod_log)
 
 
 # mod1 <- lm(prestige ~ education + poly(women, 2) +
@@ -97,12 +115,16 @@ summary(mod0)
 mod1 <- lm(prestige ~ education + women +
              log(income)*type, data=Prestige)
 
+# coefficients
+
 
 summary(mod1)
 
 
 arm::coefplot(mod0, col.pts="red", cex.pts=1.5)
 arm::coefplot(mod1, add=TRUE, col.pts="blue", cex.pts=1.5)
+
+
 
 anova(mod0, mod1)
 

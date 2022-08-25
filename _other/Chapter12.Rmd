@@ -1,0 +1,658 @@
+---
+title: "Chapter 12: Regression: Basics, Assumptions, & Diagnostics"
+author: "Allison B. Mueller"
+output:
+  html_document:
+    theme: cerulean
+    highlight: textmate
+    fontsize: 8pt
+    toc: true
+    number_sections: true
+    code_download: true
+    toc_float:
+      collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# REGRESSION BASICS
+
+Load the libraries we are going to need. If you don't have these libraries, you can use the install.packages() command to install them.
+
+**stargazer** makes pretty regression tables, with  multiple models side-by-side.
+
+**foreign** will read in SPSS.
+
+**car** and **gvlma** help you run your diagnostics.
+
+You can visualize your interactions using a couple different libraries: **effects** visualizes using lattice plots, whereas **sjPlot** visualizes using ggplot. 
+
+**MASS** is used for stepwise regression, as well as a range of other linear regression tasks.
+
+**relaimpo** and **ggplot2** are modern tools used to determine factor importance.
+
+
+```{r, message=FALSE}
+library(stargazer)
+library(foreign)  
+library(car)      
+library(gvlma)   
+library(effects) 
+library(sjPlot)  
+library(MASS) 
+library(relaimpo) 
+library(ggplot2) 
+```
+
+## Get data file in place
+
+First, let's make sure that we set our working directory. See Chapter 1 if you need a refresher on how and why we do that.
+
+```{r, message=FALSE}
+#set working directory
+#setwd("path of working directory goes here!")
+```
+
+Below, I've created several examples for us to play around with while we learn regression basics & diagnostics. 
+
+### **Example 1: A Thanksgiving to Not Remember**
+
+To make our example festive, imagine I'm interested in which factors predict enjoyment of Thanksgiving dinner. I randomly sampled 20 people and asked them about their Thanksgiving feast. I am specifically interested in the impact of political identification (Republican vs. Democrat) on the amount of wine consumed during Thanksgiving dinner (measured in glasses). I hypothesized that Democrats would drink their sorrows away during Thanksgiving (the perfect time to drink without judgment!) to a greater extent than Republicans. Note that we have a categorical predictor predicting a continuous criterion. 
+
+Let's make the data frame. See Chapter 1 for dataframe basics, and Chapter 7 for more information on the rnorm function.
+
+```{r, message=FALSE}
+#set the seed. This ensures that rnorm will sample the same datapoints for you as it did for me.
+set.seed(57)
+
+NRepublicans = 10 
+NDemocrats = 10
+
+#ID number
+ID<-factor(c(seq(1:NRepublicans),seq(1:NDemocrats)))
+
+
+#Vector of labels
+Group<-c(rep("Republicans",NRepublicans),rep("Democrats",NDemocrats))
+
+#vector of datapoints for wine consumed
+Wine<-c(rnorm(NRepublicans,mean=5,sd=1),rnorm(NDemocrats,mean=10,sd=1.5))
+
+### Let's put it all together
+dataset.gobble1<-data.frame(
+  subjectID = ID,
+  PolID = Group,
+  WineO = Wine)
+
+str(dataset.gobble1)
+
+levels(dataset.gobble1$PolID)
+
+print(dataset.gobble1)
+
+
+```
+## Run a basic linear regression model
+
+We will regress political identification onto our criterion variable, wine consumption.
+
+To run a basic regression model, use the lm() function.
+
+```{r, message=FALSE}
+?lm
+```
+
+It generally takes the layout of "Name your model"<-lm(Criterion~Predictor, data="name of your dataset"). Note that in your output, the "estimate" value denotes the unstandardized beta for each predictor. Also note that I didn't dummy code the categorical predictor. R is very smart and can handle this (it already has a contrast table built in for every factor variable). You can look at the current contrast table for our factor variable (political ID) by using the contrasts() command.
+
+Refer to the following resource for additional info on linear model notation in R http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf 
+
+```{r, message=FALSE}
+contrasts(dataset.gobble1$PolID)
+```
+
+You can see that it is currently dummy coded with Democrats as the reference group. What R outputs by default will be drink consumption for one level of the variable in relation to the reference group level. In our case, because Democrats is the reference group, we should see the amount of drinks consumed for Republicans, relative to Democrats. 
+
+Let's confirm that's what we get. 
+
+```{r, message=FALSE}
+
+#use lm() function here to run your regression model
+Gobble.model.1<-lm(WineO~PolID, data=dataset.gobble1)
+summary(Gobble.model.1)
+
+#Stargazer package gave us a pretty summary table, right?!
+#Note that it outputs a measure of effect size for the model (i.e., adjusted R-squared)
+stargazer(Gobble.model.1,type="text")
+
+
+#Want to save this table as a txt file?
+#Set your working directory, then run code below
+#The table will save to your working directory, and then you can open this file with any word processor
+#stargazer(Gobble.model.1,type="text", out="gobble1.txt")
+```
+What did we find? Political ID (specifically being Republican) predicted less drink consumption on Thanksgiving. AKA: Republicans (relative to Democrats) were less likely to drink away their sorrows, as predicted. Cool!
+
+*Want to change your dummy coding*?
+
+If you'd like to change how R dummy codes your categorical predictor, you can use the relevel() command. For example, I can change the reference group in our example to be Republicans.
+
+```{r, message=FALSE}
+dataset.gobble1$PolID2 = relevel(dataset.gobble1$PolID, ref="Republicans")
+contrasts(dataset.gobble1$PolID2)
+```
+
+Now Republicans are the reference group.
+
+### **Example 2: A Thanksgiving Not to Remember, Part 2**
+
+Recall that I'm interested in all things Thanksgiving. I randomly sampled 250 people and asked them about their Thanksgiving. Now, I am specifically interested in the impact of turkey consumption (measured in grams) on the amount of time that people need to nap after Thanksgiving dinner (measured in minutes). I hypothesized that greater turkey consumption would predict more time napping after dinner.
+
+Let's create the data frame. Note that unlike the example above, we are now working with a continuous predictor and a continuous criterion. 
+```{r, message=FALSE}
+#set the seed. This ensures that rnorm will sample the same datapoints for you as it did for me.
+set.seed(59)
+
+ N <- 250
+    TurkeyTime <- runif(N, 0, 50)
+    NapTime <- (2*TurkeyTime + rnorm(N, sd=2)) + 1.5
+    #I made nap time have a positive linear relationship with turkey so this example would work out nicely. Hence, the 2*TurkeyTime above. 
+    #Why did I add rnorm(N, sd=2)? To add normally distributed errors to the Naptime on TurkeyTime linear relationship.
+    #Why did I add a 1.5 to the equation? To ensure that I don't get an intercept for NapTime that is negative (it wouldn't make sense to nap negative minutes!)
+    
+#ID number
+ID<-factor(c(seq(1:N)))
+
+### Let's put it all together
+dataset.gobble2<-data.frame(
+  subjectID = ID,
+  Turkeyyy = TurkeyTime,
+  Sleepyyy = NapTime)
+
+str(dataset.gobble2)
+
+head(dataset.gobble2)
+```
+
+Now let's run our regression model, with turkey consumption predicting nap time. 
+```{r, message=FALSE}
+
+#use lm() function here to run your regression model
+Gobble.model.2<-lm(Sleepyyy~Turkeyyy, data=dataset.gobble2)
+summary(Gobble.model.2)
+
+#Stargazer package gave us a pretty summary table, right?!
+#Note that it outputs a measure of effect size for the model (i.e., adjusted R-squared)
+stargazer(Gobble.model.2,type="text")
+
+#Want to save this table as a txt file?
+#Set your working directory, then run code below
+#The table will save to your working directory, and then you can open this file with any word processor
+#stargazer(Gobble.model.2,type="text", out="gobble2.txt")
+```
+What did we find? Greater turkey consumption significantly predicted more time napping after Thanksgiving dinner, as predicted.
+
+#REGRESSION ASSUMPTIONS
+
+Before we submit our findings to the Journal of Thanksgiving Science, we need to verifiy that we didn't violate any regression assumptions. 
+
+Let's review what our basic linear regression assumptions are conceptually, and then we'll turn to diagnosing these assumptions in the next section below. 
+
+**Linearity**
+Linear regression is based on the assumption that your model is linear (shocking, I know). Violation of this assumption is very serious--it means that your linear model probably does a bad job at predicting your actual (non-linear) data. Perhaps the relationship between your predictor(s) and criterion is actually curvilinear or cubic. If that is the case, a linear model does a bad job at modeling that relationship, and it is inappropriate to use such a model. There's no point in worrying about significance tests or confidence intervals if a linear model doesn't reflect your non-linear data.
+
+**Normally distributed stuff & things**
+The assumption of normality in regression manifests in three ways:
+1. For confidence intervals around a parameter to be accurate, the paramater must come from a normal distribution.
+2. For significance tests of models to be accurate, the sampling distribution of the thing you're testing must be normal. 
+3. To get the best estimates of parameters (i.e., betas in a regression equation), the residuals in the population must be normally distributed. 
+
+This assumption is most important when you have a small sample size (because central limit theorem isn't working in your favor), and when you're interested in constructing confidence intervals/doing significance testing. 
+
+**Homoscedasticity/homogeneity of variance**
+Homogeneity of variance occurs when the spread of scores for your criterion is the same at each level of the predictor. When this assumption is satisfied, your parameter estimates will be optimal. When there are unequal variances of the criterion at different levels of the predictor (i.e., when this assumption is violated), you'll have inconsistency in your standard error & parameter estimates in your model. Subsequently, your confidence intervals and significance tests will be biased. 
+
+**Independence**
+Last but not least, independence means that the errors in your model are not related to each other. Computation of standard error relies on the assumption of independence, so if you don't have standard error, say goodbye to confidence intervals and significance tests. 
+
+**No influential outliers**
+This isn't technically an assumption of regression, but it's best practice to avoid influential outliers. Why is it problematic to have outliers in your data? Outliers can bias parameter estimates (e.g., mean), and they also affect your sums of squares. Sums of squares are used to estimate the standard error, so if your sums of squares are biased, your standard error likely is too. It's really bad to have a biased standard error because it is used to calculate confidence intervals around our parameter estimate. In other words, outliers could lead to biased confidence intervals. Not good! We need to rid ourselves of those pesky outliers!
+
+#REGRESSION DIAGNOSTICS
+
+So now that your memory is refreshed on all regression assumptions, how do we know whether we've violated any of those assumptions? We can run diagnostics in R to assess whether our assumptions are satisfied or violated. 
+
+But first, it always helps to visualize the relationship between our variables to get an intuitive grasp of the data. 
+
+```{r, message=FALSE}
+plot(TurkeyTime, NapTime, main="Scatterplot of Thanksgiving", 
+  	xlab="Turkey Consumption in Grams ", ylab="Sleep Time in Minutes ", pch=19)
+```
+
+
+The relationship between turkey consumption and sleep time looks pretty darn linear! Neato! But let's see what our other diagnostic plots say. 
+
+##Getting a Broad Snapshot: plot()
+
+Let's run the plot() function to run four different diagnostic plots. We can visually inspect these plots to get a sense of how we did on several of the assumptions outlined above. Note that I am inspecting how my second model did on satisfying assumptions (i.e., when turkey consumption predicted nap time).
+
+```{r, message=FALSE}
+#This lets you view each diagnistic plot one at a time.
+#I will walk you through 4 plots, and interpret each in turn. 
+
+plot(Gobble.model.2,which=1)
+
+```
+
+
+**Plot 1**: The first plot depicts residuals versus fitted values. The plot of residuals versus predicted values is useful for checking the assumption of **linearity** and **homoscedasticity**. If the model does NOT meet the linear model assumption, we would see our residuals take on a defined shape or a distinctive pattern. For example, if your plot looks like a parabola, that's bad. Your scatterplot of residuals should look like the night sky--no distinctive patterns. The red line through your scatterplot should also be straight and horizontal, not curved, if the linearity assumption is satisfied. To assess if the homoscedasticity assumption is met we look to make sure that the residuals are equally spread around the y = 0 line.
+
+How did we do? R automatically flagged 3 data points that have large residuals (observations 116, 187, and 202). Besides that, our residuals appear to be pretty darn linear, as is evidenced by the straight red line plotted through our residuals (if they were quadratic, for example, that line would resemble the shape of a parabola). It also looks like our data are homoscedastic, given that they appear evenly spread around the y = 0 line. Hooray!
+
+
+```{r, message=FALSE}
+#Let's look at our second plot now.
+
+plot(Gobble.model.2,which=2)
+
+```
+
+
+**Plot 2**: The **normality** assumption is evaluated based on the residuals and can be evaluated using a QQ-plot by comparing the residuals to "ideal" normal observations along the 45-degree line. 
+
+How did we do? R automatically flagged those same 3 data points that have large residuals (observations 116, 187, and 202). However, aside from those 3 data points, observations lie well along the 45-degree line in the QQ-plot, so we may assume that normality holds here.
+
+
+```{r, message=FALSE}
+#Let's look at our third plot now.
+
+plot(Gobble.model.2,which=3)
+
+```
+
+
+**Plot 3**: The third plot is a scale-location plot (square rooted standardized residual vs. predicted value). This is useful for checking the assumption of **homoscedasticity**. In this particular plot we are checking to see if there is a pattern in the residuals. If the red line you see on your plot is flat and horizontal with equally and randomly spread data points (like the night sky), you're good. If your red line has a positive slope to it, or if your data points are not randomly spread out, you've violated this assumption. 
+
+How did we do? R flagged observations 116, 187, and 202. Besides that, we do see a horizontal line with randomly scattered data points around it, suggesting that the homoscedasticity assumption is satisfied here. 
+
+
+```{r, message=FALSE}
+#Let's look at our final plot now.
+#Note that this specific plot ID is considered '5' in R. That's why I called for which=5. 
+
+plot(Gobble.model.2,which=5)
+
+```
+
+
+**Plot 4**: The fourth plot helps us find **influential cases**, if any are present in the data. Note: Outliers may or may not be influential points. Influential outliers are of the greatest concern. They could alter the results, depending on whether they are included or excluded from the analysis. If you're good and don't have influential cases, you will hardly see a dash red curve, if at all (that red dashed curved line represents Cook's distance). If you don't see a red Cook's distance curved line, or one is just barely peaking out of the corner or your plot but none of your data points are within it, you're good. If you notice some of your data points cross that distance line, you're not so good/ you have influential data points.
+
+How did we do? Observations 152, 187, and 202 stick out. However, they don't cross Cook's distance line (which isn't even present in this plot), so we're okay!
+
+
+```{r, message=FALSE}
+#Alternatively, if you'd like to see all 4 plots side by side, try this:
+layout(matrix(c(1,2,3,4),2,2)) 
+plot(Gobble.model.2)
+```
+
+
+**Overall evaluation**: Observations 187 and 202 are flagged in each of the 4 plots above. You should consider looking at these observations more closely. Is there something weird about these subjects, or were there errors in data entry? Besides these potentially weird observations, however, our data look great!
+
+##Testing for Outliers: outlierTest()
+We can also use the outlierTest() function to detect outliers in the data. This function runs a Bonferonni adjusted outlier test. The null for this test is that the observation is NOT an outlier. 
+
+```{r, message=FALSE}
+
+# Assessing Outliers
+#Are there outliers?  
+outlierTest(Gobble.model.2) # Bonferonni p-value for most extreme obs
+
+```
+How did we do? Observation 202 is the most extreme observation in our data, but it isn't an outlier, as the null cannot be rejected (adjusted p > 0.05).
+
+
+##Testing for Influential Observations: Cook's Distance
+The code below plots Cook's distance, which is a measure of the influence of each observation on the regression coefficients. The Cook's distance statistic is a measure, for each observation in turn, of the extent of change in model estimates when that particular observation is omitted. Any observation for which the Cook's distance is close to 1 or more, or that is substantially larger than other Cook's distances (highly influential data points), requires investigation.
+
+```{r, message=FALSE}
+# Influential Observations
+# Cook's D plot
+# identify D values > 4/(n-k-1) 
+cutoff <- 4/((nrow(dataset.gobble2)-length(Gobble.model.2$coefficients)-2)) 
+plot(Gobble.model.2, which=4, cook.levels=cutoff)
+```
+
+How did we do? Observations 152, 187, and 202 appear to be the most influential observations in our data, confirming what we saw above when we used the plot() function to get a sense of whether any data points are influential (plot 4, specifically). However, note that plot 4 from the plot() function suggested that these observations were not truly influential on our regression results. 
+
+##Testing the Normality Assumption: studres()
+The studres() function does just what it sounds like: plots the distribution of residuals. We want it to look normally distributed, in accordance with the normality assumption. 
+
+```{r, message=FALSE}
+# distribution of studentized residuals
+sresid <- studres(Gobble.model.2) 
+hist(sresid, freq=FALSE, 
+     main="Distribution of Studentized Residuals")
+xfit<-seq(min(sresid),max(sresid),length=40) 
+yfit<-dnorm(xfit) 
+lines(xfit, yfit)
+```
+
+How did we do? Looks nice n' normal to me! 
+
+##Testing the Homoscedasticity Assumption: ncvTest()
+The ncvTest() provides us with another test of the homoscedasticity assumption. Specifically, this is a statistic that tests whether there is non-constant variance (i.e., heteroscedasticity). The null states that there is constant variance. 
+```{r, message=FALSE}
+# Evaluate homoscedasticity
+# non-constant error variance test
+ncvTest(Gobble.model.2)
+```
+How did we do? p > .05, suggesting that our data is homoscedastic. Yay!
+
+##Testing the Linearity Assumption: crPlots()
+The crPlots() function is great for visually seeing whether your predictors have a linear relationship with your dependent variable. You should see a green line that models the residuals of your predictor against your dependent variable (i.e., the loess line). The red line represents the line of best fit. If your green line seems to be similarly linear as your red line, you're good. If the green line appears curved relative to the red line, you likely have a linearity problem. 
+```{r, message=FALSE}
+# Evaluate Nonlinearity
+# component + residual plot aka partial-residual plots
+crPlots(Gobble.model.2)
+```
+
+How did we do? Great! Both red & green lines are nice and linear, as they should be. 
+
+##Testing the Independence Assumption: durbinWatsonTest()
+The Durbin Watson examines whether the errors are autocorrelated with themselves. The null states that they are not autocorrelated (what we want). This test could be especially useful when you conduct a multiple (times series) regression. For example, this test could tell you whether the residuals at time point 1 are correlated with the residuals at time point 2 (they shouldn't be). In other words, this test is useful to verify that we haven't violated the **independence** assumption. 
+```{r, message=FALSE}
+durbinWatsonTest(Gobble.model.2)
+```
+How did we do? p > 0.05, so the errors are not autocorrelated. We have not violated the independence assumption. Hooray!
+
+
+##Global Test of Model Assumptions: gvlma() 
+Finally, if you are feeling lazy, you could always do a global test of model assumptions using the gvlma package. Check out (almost) everything using just one package! Just as the other plots suggested, all of our assumptions seem to be acceptable. *Special note*: There is not much input from the R user community about each of these decisions, and what exactly each decision means. User beware!
+
+```{r, message=FALSE}
+gvmodel.gobble <- gvlma(Gobble.model.2) 
+summary(gvmodel.gobble)
+```
+
+##Overall Evaluation
+You can see that there are a LOT of diagnostics that you can run to check whether you've satisfied or violated any regression assumptions. Luckily, they are all pretty consistent with each other. In my perfect regression model above, we didn't have any big issues with assumptions. 
+
+#What about a more problematic example?
+Let's intentionally make the relationship between turkey consumption and nap time positively quadratic. 
+```{r, message=FALSE}
+#set the seed. This ensures that rnorm will sample the same datapoints for you as it did for me.
+set.seed(66)
+
+ N <- 250
+    TurkeyTime2 <- runif(N, 0, 50)
+    NapTime2 <- (TurkeyTime2^2 + rnorm(N, sd=16)) + 500
+    #I made nap time have a positive quadratic relationship with turkey so this example would be icky.
+    #I also added 500 to the equation to ensure we don't get a negative intercept for nap time.
+    
+#Let's make a data frame
+dataset.gobble3<-data.frame(
+  Turkeyyy2 = TurkeyTime2,
+  Sleepyyy2 = NapTime2)
+    
+
+#Let's make things really interesting by adding some bad outliers to the data!
+outliers<-data.frame(Turkeyyy2=c(45, 50), Sleepyyy2=c(3000,4000))
+dataset.gobble3<-rbind(outliers, dataset.gobble3)
+#binds 2 new outliers to the top of our dataset
+
+str(dataset.gobble3)
+
+#note that our 2 outliers are at the top of the dataset now
+head(dataset.gobble3)
+
+```
+
+Let's test our new ridiculous model (notice how long people are sleeping now...)
+```{r, message=FALSE}
+
+#use lm() function here to run your regression model
+Gobble.model.3<-lm(Sleepyyy2~Turkeyyy2, data=dataset.gobble3)
+summary(Gobble.model.3)
+
+#Stargazer package gave us a pretty summary table, right?!
+#Note that it outputs a measure of effect size for the model (i.e., adjusted R-squared)
+stargazer(Gobble.model.3,type="text")
+
+#Want to save this table as a txt file?
+#Set your working directory, then run code below
+#The table will save to your working directory, and then you can open this file with any word processor
+#stargazer(Gobble.model.3,type="text", out="gobble3.txt")
+```
+
+With our new model, it seems like greater turkey consumption still predicts greater nap time. But are our assumptions satisfied? 
+
+Let's first visualize this relationship to get an intuitive grasp of the data. 
+
+```{r, message=FALSE}
+plot(dataset.gobble3, main="Scatterplot of Thanksgiving", 
+  	xlab="Turkey Consumption in Grams ", ylab="Sleep Time in Minutes ", pch=19)
+```
+
+It sure doesn't look linear, and we can see our outliers. But what about the other assumptions?
+
+##Getting a Broad Snapshot: plot()
+
+Let's run the plot() function to get a snapshot of how many of our assumptions are doing. 
+```{r, message=FALSE}
+#Let's go through each plot one by one. 
+plot(Gobble.model.3,which=1)
+
+```
+
+
+
+
+**Plot one**: Are the data linear? No; the residuals shouldn't be clustered together in the shape of a smile. They should be randomly scattered across the plot, and the red line should be horizontal/not curved. Are the data homoscedastic? They don't appear to be, because the residuals aren't equally spread around the y = 0 line. So far, it seems like we've violated the linearity and homoscedasticity assumptions. 
+
+
+```{r, message=FALSE}
+#Let's look at our second plot. 
+plot(Gobble.model.3,which=2)
+
+```
+
+
+**Plot two**: How are we doing on the normality assumption? Not good; the QQplot is curved at the ends rather than straight along the dotted 45-degree angle line. This suggests we've violated the normality assumption. 
+
+
+```{r, message=FALSE}
+#Let's look at our third plot.
+plot(Gobble.model.3,which=3)
+
+```
+
+
+**Plot three**: Are our data homoscedastic? This one is tricky; the red line is pretty horizontal, suggesting that the data are in fact homoscedastic. However, note how our residuals are clustered in the shape of a W rather than looking randomly dispursed like the night sky. This isn't good-- it suggests that there is a lot of variation in residual dispersion around the line of best fit. In other words, the homoscedasticity assumption has been violated. 
+
+
+```{r, message=FALSE}
+#Let's go through each plot one by one. 
+plot(Gobble.model.3,which=5)
+
+```
+
+
+**Plot four**: Do we have influential cases? Observation 2 is very close to crossing Cook's distance dotted line (i.e., Cook's distance for observation 2 is almost > 0.5), but it doesn't actually cross. Strictly speaking, this plot suggests that our outliers aren't influential. 
+
+
+
+```{r, message=FALSE}
+#Or, if you'd like to see all 4 plots side by side, try this:
+layout(matrix(c(1,2,3,4),2,2)) 
+plot(Gobble.model.3)
+```
+
+
+
+**Overall Evaluation**: It's no surprise that the linearity assumption is violated in this example (visible in plot 1). Moreover, plot 2 suggests that the normality assumption is violated, and plots 1 and 3 suggest that the homoscedasticity assumption is violated. Observations 1, 2, and 235 are outliers (but are not influential, as revealed in plot 4): They are flagged as outliers in each of the plots above. Check to see whether there is something weird about these subjects, or whether there were data entry errors. In sum, our model is a disaster!
+
+##Testing for Outliers: outlierTest()
+We can also use the outlierTest() function to detect outliers in the data. This function runs a Bonferonni adjusted outlier test. The null for this test is that the observation is not an outlier. 
+
+
+```{r, message=FALSE}
+
+# Assessing Outliers
+#Are there outliers? Yes, 
+outlierTest(Gobble.model.3) # Bonferonni p-value for most extreme obs
+
+```
+How did we do? It's no surprise that observation 2 is an outlier (but do note that observations 1 and 235 were not flagged as outliers in this test). We reject the null that there are no outliers (p < .05).
+
+##Testing for Influential Observations: Cook's Distance
+Let's check out Cook's distance-- it should flag the same observations as in plot 4 in the plot() function. 
+
+```{r, message=FALSE}
+# Influential Observations
+# Cook's D plot
+# identify D values > 4/(n-k-1) 
+cutoff <- 4/((nrow(dataset.gobble3)-length(Gobble.model.3$coefficients)-2)) 
+plot(Gobble.model.3, which=4, cook.levels=cutoff)
+```
+
+How did we do? Observations 1, 2, and 235 appear to be the most influential observations in our data--the same ones flagged in the residuals vs. leverage plot above. Do note, however, that the Residuals vs. Leverage plot above (plot 4) suggests that these observations are not truly influential to our regression results. 
+
+
+##Testing the Normality Assumption: studres()
+Are our residuals normally distributed?
+
+```{r, message=FALSE}
+# distribution of studentized residuals
+sresid <- studres(Gobble.model.3) 
+hist(sresid, freq=FALSE, 
+     main="Distribution of Studentized Residuals")
+xfit<-seq(min(sresid),max(sresid),length=40) 
+yfit<-dnorm(xfit) 
+lines(xfit, yfit)
+```
+
+Nope! Not surprised; our model is intentionally horrible!
+
+##Testing the Homoscedasticity Assumption: ncvTest()
+Are we homoscedastic? Remember: The null here states that there is constant variance. 
+```{r, message=FALSE}
+# Evaluate homoscedasticity
+# non-constant error variance test
+ncvTest(Gobble.model.3)
+```
+We've violated the homoscedasticity assumption (p < .05), and this conclusion is bolstered by what we saw in plots 1 and 3 from above. 
+
+##Testing the Linearity Assumption: crPlots()
+Does our predictor have a linear relationship with the dependent variable? 
+```{r, message=FALSE}
+# Evaluate Nonlinearity
+# component + residual plot aka partial-residual plots
+crPlots(Gobble.model.3)
+```
+
+No, our model doesn't look linear. It looks like a quadratic relationship.  
+
+
+##Testing the Independence Assumption: durbinWatsonTest()
+Independence of errors? The null states that they are not autocorrelated (what we want).
+```{r, message=FALSE}
+durbinWatsonTest(Gobble.model.3)
+```
+We've violated the independence assumption (p < .05). 
+
+
+##Global Test of Model Assumptions: gvlma() 
+Finally, let's see what the gvlma package says!
+```{r, message=FALSE}
+gvmodel.gobble3 <- gvlma(Gobble.model.3) 
+summary(gvmodel.gobble3)
+```
+This confirms what we saw above. We have major problems with all assumptions!
+*Special note*: There is not much input from the R user community about each of these decisions, and what exactly each decision means. User beware!
+
+
+#What can we do to remedy this? 
+We can do a bca bias correction using the boot() function in the car package. It corrects for assumptions violations. Note that the confidence interval isn't symmetrical because our data isn't perfectly normal. Thus, when you report them make sure to note that they are 95% bootstrap bca confidence intervals. Also note that the quantiles reported in the output are *linear* quantiles. 
+
+```{r, message=FALSE}
+gobble1 <- Boot(Gobble.model.2, R=1000)
+summary(gobble1)
+confint(gobble1)
+
+```
+Note that once we correct for assumption violations, the 95% bootstrap bca confidence intervals suggest that the effect of turkey consumption on sleep time is significant. 
+
+
+#Introduction to Multiple Regression 
+Let's go over a very basic example of to introduce you to multiple regression in R. 
+
+Let's create a data frame that combines our turkey consumption, wine consumption, and sleep time variables. 
+
+```{r, message=FALSE}
+#set the seed. This ensures that rnorm will sample the same datapoints for you as it did for me.
+set.seed(99)
+
+N <- 250
+    TurkeyYum <- runif(N, 0, 50)
+    WineYum <- runif(N, 0, 50) 
+    NapYum <- 2*TurkeyYum + rnorm(N, sd=0.5)
+    
+#ID number
+IDMultiple<-factor(c(seq(1:N)))
+
+### Let's put it all together
+dataset.gobble.multiple<-data.frame(
+  subjectIDmultiple = IDMultiple,
+  TurkeyYummy = TurkeyYum, 
+  WineYummy = WineYum,
+  SleepyYummy = NapYum)
+
+str(dataset.gobble.multiple)
+
+head(dataset.gobble.multiple)
+```
+
+Now let's run a multiple regression model (defined as a regression model with 2 or more predictors) that considers whether turkey consumption AND wine consumption predict sleep time. What you'll notice in the model below is that it generally takes the same form as that of simple linear regression: "Name your model" <- lm(Criterion~Predictor1 + Predictor2, data="name of your dataset"). Now, however, I have 2 predictors and there is a + sign in between them. What this means is that the predictors are entered simultaneously into the model, and the output reflects the effect of each on the criterion, controlling for the other. 
+
+
+```{r, message=FALSE}
+Gobble.model.multiple<-lm(SleepyYummy~TurkeyYummy+WineYummy, data=dataset.gobble.multiple)
+summary(Gobble.model.multiple)
+```
+
+What does this mean? It means that turkey is a significant predictor of sleep time, controlling for wine consumption: The more turkey one consumes, the longer one naps. However, wine is not a significant predictor of sleep time after controlling for turkey consumption; they are unrelated. 
+
+Next chapters, you will learn more about multiple regression, including moderation and mediation! 
+
+# REFERENCES
+
+**The following websites were very helpful to me while writing this chapter**.
+
+http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R5_Correlation-Regression/R5_Correlation-Regression7.html (author: Boston University School of Public Health)
+
+http://www.vikparuchuri.com/blog/r-regression-diagnostics-part-1/ (author: Vik Paruchuri)
+
+http://data.library.virginia.edu/diagnostic-plots/ (author: Bommae Kim, University of Virginia)
+
+**Other useful online tutorials**:
+https://ww2.coastal.edu/kingw/statistics/R-tutorials/simplelinear.html
+http://www.statmethods.net/stats/regression.html
+http://tutorials.iq.harvard.edu/R/Rstatistics/Rstatistics.html
+http://www.statmethods.net/stats/rdiagnostics.html
+
+**Brush up on your regression diagnositics options**:
+https://cran.r-project.org/web/packages/car/vignettes/embedding.pdf
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-98878793-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
