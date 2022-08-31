@@ -7,10 +7,13 @@ data(Prestige, package="carData")
 Prestige$type <- factor(Prestige$type, levels=c("bc", "wc", "prof")) # reorder levels
 #head(Prestige)
 
+library(dplyr)
 library(ggplot2)
 library(here)
 library(modelsummary)
-library(dplyr)
+library(GGally)
+library(broom.helpers)
+
 
 #' plots of unstandardized coefficients
 
@@ -46,11 +49,22 @@ mod1_std <- lm(prestige ~ education + women + income + type,
 mod2_std <- lm(prestige ~ education + women + income * type,
                data=Prestige_std)
 
-modelplot(list("mod0" = mod0_std, "mod1" = mod1_std, "mod2" = mod2_std), 
+models <- list("mod0" = mod0_std, "mod1" = mod1_std, "mod2" = mod2_std)
+modelplot(models, 
           coef_omit="Intercept", size=1.3) +
   labs(title="Standardized coefficients") +
   geom_vline(xintercept = 0, size=1.5) +
   scale_y_discrete(limits=rev) +
   theme_bw(base_size = 16) +
   theme(legend.position = c(0.9, 0.2))
+
+# Use GGally::ggcoef_compare
+
+library(GGally)
+library(broom.helpers)
+
+ggcoef_compare(models) + 
+  xlab("Standardized Beta") 
+
+
 

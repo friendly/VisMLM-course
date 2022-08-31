@@ -21,16 +21,16 @@ To follow along and run any tutorials or examples, you will need the following:
 - A recent version of RStudio, [download from here.](https://rstudio.com/products/rstudio/download/#download)
 
 - The following R packages are used:   
-arm, broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, 
-mvinfluence, palmerpenguins, stargazer, rgl, tidyverse, visreg
+arm, broom, candisc, car, corrgram, dplyr, effects, ggplot2, glue, heplots, knitr, learnr, MASS, modelsummary, MVN,
+mvinfluence, palmerpenguins, stargazer, rgl, rpart, rpart.plot, rstatix, tidyverse, visreg
 
-You can install all required R packages at once by running the script [install-vismlm-pkgs.r](R/install-vismlm-pkgs.r).
+You can install _all_ required R packages at once by running the script [install-vismlm-pkgs.R](R/install-vismlm-pkgs.R).
 Alternativelty, use the following code in the R Studio console or from an editor window.
 
 ```{r eval = FALSE, echo = TRUE}
-pkgs <- c("arm", "broom", "candisc", "car", "corrgram", "dplyr", "effects", "ggplot2", 
-          "glue", "heplots", "knitr", "learnr", "MASS", "modelsummary",
-          "mvinfluence", "palmerpenguins", "stargazer", "rgl", "rpart", "rpart.plot",
+pkgs <- c("arm", "broom", "candisc", "car", "corrgram", "dplyr", "effects", "ggbiplot", 
+          "ggplot2", "glue",  "heplots", "knitr", "learnr", "MASS", "modelsummary", 
+          "MVN", "palmerpenguins", "stargazer", "rgl", "rpart", "rpart.plot", "rstatix",
           "tidyverse", "visreg") 
 
 # install the above, along with any dependencies
