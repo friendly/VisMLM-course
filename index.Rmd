@@ -1,7 +1,7 @@
 ---
 title: "Visualizing Linear Models: An R Bag of Tricks"
 author: "Michael Friendly"
-date: "Oct-Nov, 2021"
+date: "Oct-Nov, 2022"
 output:
   html_document:
     toc: true
@@ -53,20 +53,21 @@ install.packages(pkgs, dependencies=TRUE)
 
 ### Materials: 
 
-- **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) || 
-  `r icon::fa("video", color="red")` 
+- **Lecture notes**: `r fontawesome::fa("file-pdf", fill="red")` [1up PDF](lectures/lecture1.pdf) || [4up PDF](lectures/lecture1-2x2.pdf) || 
+  `r fontawesome::fa("video", fill="red")` 
 <!-- [video](https://www.dropbox.com/s/pwac9ufsbz1r4l1/VisMLM-Lecture1.mp4?dl=0) -->
 [video](https://yorku.zoom.us/rec/share/s5EdZh0EJpnRdSv-YwBRQ_UIfeRxSYT0HbjBIIpboI4Fq3hCH2pbeIOADcdNKR0E.R6Nn0XfrvsXdG2c3)
 
-- **Lab exercise**: `r icon::fa("rocket", color="red")`
-  + Visualizing regression models [duncan-reg.html](exercises/duncan-reg.html) || [duncan-reg.R](exercises/duncan-reg.R)
+-  **Lab exercise**: `r fontawesome::fa("rocket", fill="red")` 
+  + Visualizing regression models: [duncan-reg.html](exercises/duncan-reg.html) || [duncan-reg.R](exercises/duncan-reg.R)
 
-- **Examples**: `r icon::fa("laptop-code", color="red")`
-  + Prestige data [prestige-ex.R](examples/prestige-ex.R) || [prestige-ex.html](examples/prestige-ex.html) 
-  + Penguin data [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html)
-  + Coefficient plots [coefplots-demo.R](examples/coefplots-demo.R) || [coefplots-demo.html](examples/coefplots-demo.html)
+- **Examples**: `r fontawesome::fa("laptop-code", fill="red")` 
+  + Prestige data: [prestige-ex.R](examples/prestige-ex.R) || [prestige-ex.html](examples/prestige-ex.html) 
+  + Penguin data: [penguins-lm-ex.R](examples/penguins-lm-ex.R) || [penguins-lm-ex.html](examples/penguins-lm-ex.html)
+  + Coefficient plots: [coefplots-demo.R](examples/coefplots-demo.R) || [coefplots-demo.html](examples/coefplots-demo.html)
+  + Diagnostic plots: [prestige-diagnose.R](examples/prestige-diagnose.R) || [prestige-diagnose.html](examples/prestige-diagnose.html)
 
-### Learning more `r icon::fa("chalkboard-teacher", color="red")`
+###  Learning more `r fontawesome::fa("chalkboard-user", fill="red")`
 
 - [Building better tables in R](https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/) How to make tables people ACTUALY want to read.
 - [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)
@@ -94,13 +95,13 @@ based on Wilke's [_Fundamentals of Data Visualization_](https://clauswilke.com/d
 - HEplot framework
 
 ### Materials:
-- **Lecture notes**: `r icon::fa("file-pdf", color="red")`  [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r icon::fa("video", color="red")` <!--[video](https://www.dropbox.com/s/ngzbxafd91oaosd/VisMLM-Lecture2.mp4?dl=0) -->
+- **Lecture notes**: `r fontawesome::fa("file-pdf", fill="red")`  [1up PDF](lectures/lecture2.pdf) || [4up PDF](lectures/lecture2-2x2.pdf) || `r fontawesome::fa("video", fill="red")` 
 [video](https://yorku.zoom.us/rec/share/2x9weUryqUE_2BoUuG2Gz2gohNUbzYditDTQIFcZ0ETzjxpnQSXizsTZTQEHBREg.FI0Fl9SJELfQFeMd)
 - **Bonus lecture**: [PCA-animation](lectures/PCA-animation.pptx)
-- **Lab exercise**: `r icon::fa("rocket", color="red")`
+- **Lab exercise**: `r fontawesome::fa("rocket", fill="red")`
   + Visualizing Multivariate Data: Penguins [penguins-mlm.Rmd](exercises/penguins-mlm.Rmd) Open this in R Studio & **Run Document**. 
 
-- **Examples**: `r icon::fa("laptop-code", color="red")`
+- **Examples**: `r fontawesome::fa("laptop-code", fill="red")`
   + Math scores: Simple demo of MLMs [mathscore-simple.R]((examples/mathscore-simple.R))
   + Math scores: HE plot examples [mathscore-ex.R](examples/mathscore-ex.R) || [mathscore-ex.html](examples/mathscore-ex.html)
 <!--
@@ -110,7 +111,7 @@ based on Wilke's [_Fundamentals of Data Visualization_](https://clauswilke.com/d
   + Diabetes data: [heplots and candisc examples vignette](https://cran.r-project.org/web/packages/candisc/vignettes/diabetes.html) 
 
 
-### Learning more `r icon::fa("chalkboard-teacher", color="red")`
+### Learning more `r fontawesome::fa("chalkboard-user", fill="red")`
 
 - Fox, Friendly & Weisberg (2013), *Hypothesis Tests for Multivariate
 Linear Models Using the car Package* http://www.datavis.ca/papers/Fox+Friendly+Weisberg.pdf
@@ -139,17 +140,17 @@ http://www.tqmp.org/RegularArticles/vol13-1/p020/p020.pdf
 - Homogeneity of covariance matrices
 
 ### Materials:
-- **Lecture notes**: `r icon::fa("file-pdf", color="red")` [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf) || `r icon::fa("video", color="red")` [video](https://yorku.zoom.us/rec/share/Yultmv1l9E85GQaL9IqKCHkx8vgdJsDAnSUx1YyfBXQi3HbgDIHxFI5-a0Bo7OL9._xnvnmPhB_81bpVQ)
-- **Lab exercise**: `r icon::fa("rocket", color="red")`
+- **Lecture notes**: `r fontawesome::fa("file-pdf", fill="red")` [1up PDF](lectures/lecture3.pdf) || [4up PDF](lectures/lecture3-2x2.pdf) || `r fontawesome::fa("video", fill="red")` [video](https://yorku.zoom.us/rec/share/Yultmv1l9E85GQaL9IqKCHkx8vgdJsDAnSUx1YyfBXQi3HbgDIHxFI5-a0Bo7OL9._xnvnmPhB_81bpVQ)
+- **Lab exercise**: `r fontawesome::fa("rocket", fill="red")`
   + Visualizing MMRA Models [rohwer-mmra.html](exercises/rohwer-mmra.html) || [rohwer-mmra.R](exercises/rohwer-mmra.R)
 
-- **Examples**: `r icon::fa("laptop-code", color="red")`
+- **Examples**: `r fontawesome::fa("laptop-code", fill="red")`
   + Neuro Cognitive measures [NeuroCog-ex.R](examples/NeuroCog-ex.R) || [NeuroCog-ex.html](examples/NeuroCog-ex.html) 
   + Social cognition measures [SC-ex.R](examples/SC-ex.R) || [SC-ex.html](examples/SC-ex.html)
   + Rohwer MMRA data [Rohwer-MMRA-ex.R](examples/Rohwer-MMRA-ex.R) || [Rohwer-MMRA-ex.html](examples/Rohwer-MMRA-ex.html)
 
 
-### Learning more `r icon::fa("chalkboard-teacher", color="red")`
+### Learning more `r fontawesome::fa("chalkboard-user", fill="red")`
 
 - Friendly & Sigal (2016) *Analysis of Rohwer Data with MANCOVA*, https://rpubs.com/friendly/Rohwer-MANCOVA-ex  
 - Friendly & Sigal (2018) *Visualizing Tests for Equality of Covariance Matrices* http://www.datavis.ca/papers/EqCov-TAS.pdf

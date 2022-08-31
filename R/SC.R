@@ -4,6 +4,23 @@ data(SocialCog, package="heplots")
 
 str(SocialCog)
 
+#' ## Boxplots
+
+#' Reshape from wide to long
+SC_long <- SocialCog |>
+  tidyr::gather(key = response, value = "value", MgeEmotions:PersBias)
+
+ggplot(SC_long, aes(x=Dx, y=value, fill=Dx)) +
+  geom_jitter(shape=1, size=0.8, width=0.2) +
+  geom_boxplot(width=0.5,  alpha=0.4, outlier.alpha=1, outlier.size = 3, outlier.color = "red") +
+  facet_wrap(~response, scales = "free_y", as.table = FALSE) +
+  theme_bw() +
+  theme(legend.position="bottom",
+        axis.title = element_text(size = rel(1.2)),
+        axis.text  = element_text(face = "bold"),
+        strip.text = element_text(size = rel(1.2)))
+
+#' Fit the MLM
 SC.mlm <-  lm(cbind(MgeEmotions,ToM, ExtBias, PersBias) ~ Dx,
                data=SocialCog)
 

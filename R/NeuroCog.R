@@ -1,9 +1,5 @@
 
-# needs latest heplots from R-forge
-#install.packages("heplots", repos="http://R-Forge.R-project.org")
-folder <- "C:/Dropbox/Psychological Methods Paper/figs"
-#folder <- "C:/Users/friendly/Dropbox/Psychological Methods Paper/figs"
-setwd(folder)
+library(here)
 
 
 library(heplots)

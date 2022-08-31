@@ -13,10 +13,15 @@ df <- sim_design(between = list(group = c("Asst", "Assoc", "Full")),
 str(df)
 
 library(tibble)
-df <- tibble(group = c("Asst", "Assoc", "Full"),
-             salary = c(40, 60, 90))
-df
 
+df <- tribble(
+  ~group, ~salary,
+  "Asst",  40,
+  "Assoc", 60,
+  "Full",  90
+)
+
+df
 
 cmat <- cbind("c1:tenured?" = c(-2, 1, 1),   # tenured vs. not
               "c2:full?"    = c(0, -1, 1))   # full prof vs. assoc
