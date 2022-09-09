@@ -2,6 +2,7 @@
 
 library(car)
 library(heplots)
+library(mvinfluence)
 
 data("Rohwer", package="heplots")
 Rohwer2 <- subset(Rohwer, subset=group==2)
@@ -11,6 +12,7 @@ rohwer.mlm <- lm(cbind(SAT, PPVT, Raven) ~ n + s + ns + na + ss, data=Rohwer2)
 
 Anova(rohwer.mlm)
 
+#' ## test the overall hypothesis, B=0
 print(linearHypothesis(rohwer.mlm, 
                        c("n", "s", "ns", "na", "ss")), SSP=FALSE)
 
@@ -33,6 +35,25 @@ stargazer(rohwer.mod1, rohwer.mod2, rohwer.mod3,
 	omit = "Constant",
 	no.space=TRUE,
 	title="Univariate regression models for Rohwer data")
+
+# bivariate coefficient plots
+op <- par(mar=c(4,4,3,1)+.5)
+coefplot(rohwer.mlm, lwd=2, fill=TRUE, variables = 1:2, level=0.68,
+         cex.label = 2, cex.lab=1.5,
+         main="Bivariate 68% coefficient plot for SAT and PPVT")
+par(op)
+
+op <- par(mar=c(4,4,3,1)+.5)
+coefplot(rohwer.mlm, lwd=2, fill=TRUE, variables = c(1,3),
+         cex.label = 2, cex.lab=1.5,
+         main="Bivariate 68% coefficient plot for SAT and Raven", level=0.68)
+par(op)
+
+# try overlaying two
+coefplot(rohwer.mlm, lwd=2, fill=TRUE, variables = 1:2, level=0.68,
+         cex.label = 2, cex.lab=1.5,
+         main="Bivariate 68% and 95% coefficient plot for SAT and PPVT")
+coefplot(rohwer.mlm, lwd=2, fill=TRUE, variables = 1:2, level=0.95, add=TRUE)
 
 
 
@@ -75,3 +96,17 @@ heplot(cc, hypotheses=list("na+ns"=c("na", "ns")),
 	fill = TRUE, fill.alpha=0.1, 
 	label.pos = c(3, rep(1,5), .1),
 	cex=1.4, var.cex=1.25, var.lwd=3, var.col="black")
+
+# influence plots
+library(mvinfluence)
+
+op <- par(mar=c(4,4,1,1)+.1)
+infl <- influencePlot(rohwer.mlm, id.n=3, cex.lab=1.5, id.cex=1.5)
+par(op)
+
+infl |> dplyr::arrange(desc(CookD))
+
+
+
+cqplot(rohwer.mlm, id.n =4)
+

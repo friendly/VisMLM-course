@@ -6,6 +6,7 @@ library(heplots)
 library(candisc)
 library(palmerpenguins)
 library(ggplot2)
+library(here)
 
 # peng <- penguins %>%
 # 	rename(
@@ -14,16 +15,13 @@ library(ggplot2)
 #          flipper_length = flipper_length_mm, 
 #          body_mass = body_mass_g
 #          ) %>%
-#   mutate(species = as.factor(species),
-#          island = as.factor(island),
-#          sex = as.factor(substr(sex,1,1))) %>%
 #   filter(!is.na(bill_depth),
 #          !is.na(sex))
 # 
 # str(peng)
 # View(peng)
 
-load("data/peng.RData")
+load(here("data", "peng.RData"))
 
 
 
@@ -144,6 +142,14 @@ label <- expression(paste("Effect size scaling:", H / df[e]))
 text(52, 19.8, label, cex=1.5, pos=2)
 par(op)
 
+png(filename=here("fig", "penguins", "peng-he1.png"), 
+    height=480, width=480)
+op <- par(mar=c(4,4,1,1)+0.1)
+heplot(peng.mod0, variables=1:2, cex=1.7, cex.lab=1.8,
+       fill=TRUE, fill.alpha=0.2, size="effect")
+par(op)
+dev.off()
+
 
 png(filename="peng-he2.png", height=480, width=480)
 op <- par(mar=c(4,4,1,1)+0.1)
@@ -153,10 +159,13 @@ par(op)
 dev.off()
 
 
-png(filename="peng-contrasts.png", height=480, width=480)
+png(filename=here("fig", "penguins", "peng-contrasts.png"), 
+    height=480, width=480)
 op <- par(mar=c(4,4,1,1)+0.1)
 hyp <- list("A:C"="species1","AC:G"="species2")
-heplot(peng.mod0, fill=TRUE, fill.alpha=0.2, hypotheses=hyp, size="effect")
+heplot(peng.mod0, fill=TRUE, fill.alpha=0.2,
+       cex=1.7, cex.lab=1.8,
+       hypotheses=hyp, size="effect")
 par(op)
 dev.off()
 

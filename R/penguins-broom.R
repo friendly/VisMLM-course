@@ -1,8 +1,10 @@
----
-  #' title: Penguins data: tidy models
----
+#' ---
+#' title: Penguins data: tidy models
+#' ---
 
 library(here)
+library(dplyr)
+library(purrr)
 library(broom)
 library(effects)
 library(ggplot2)
@@ -36,9 +38,32 @@ augment(peng.mod0) %>% slice(1:5)
 
 #' ## fit multiple models
 models <- peng |>
-  group_by(sex, island) |>
-  do(mod = lm(bill_length ~ body_mass, data = .))
+  nest_by(sex, island) |>
+  mutate(model = list(lm(bill_length ~ body_mass, data = data)))
 
+models |> summarise(rsq = summary(model)$r.squared)
+
+#' get selected statistics for all models
+models |> 
+  summarise(broom::glance(model), .groups = "keep") |> 
+  select(sex, island, r.squared, sigma, statistic, p.value, nobs)
+
+models |> 
+  summarise(broom::augment(model), .groups = "keep") |> 
+  mutate(
+    sex = stringr::str_to_upper(sex),
+    SexIsland = forcats::fct_cross(sex, island)) |>
+  ggplot(aes(x=body_mass, y=bill_length, color=SexIsland, fill=SexIsland)) +
+    geom_point() +
+    geom_smooth(method = "lm", size = 2, alpha=0.3) +
+    theme_bw(base_size = 16) +
+    theme(legend.position = c(.85, .3))
+
+  
+
+#' ## use purrr
+models <- peng |>
+  
 
 
 
