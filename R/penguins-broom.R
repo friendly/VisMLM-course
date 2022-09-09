@@ -54,16 +54,47 @@ models |>
     sex = stringr::str_to_upper(sex),
     SexIsland = forcats::fct_cross(sex, island)) |>
   ggplot(aes(x=body_mass, y=bill_length, color=SexIsland, fill=SexIsland)) +
-    geom_point() +
+    geom_point(alpha=0.4) +
     geom_smooth(method = "lm", size = 2, alpha=0.3) +
     theme_bw(base_size = 16) +
     theme(legend.position = c(.85, .3))
 
-  
-
-#' ## use purrr
+#' Do the same for species, sex  
 models <- peng |>
-  
+  nest_by(species, sex) |>
+  mutate(model = list(lm(bill_length ~ body_mass, data = data)))
+
+models |> summarise(rsq = summary(model)$r.squared)
+
+#' get selected statistics for all models
+models |> 
+  summarise(broom::glance(model), .groups = "keep") |> 
+  select(species, sex, r.squared, sigma, statistic, p.value, nobs)
+
+# plot using augment
+models |> 
+  summarise(broom::augment(model), .groups = "keep") |> 
+  mutate(
+    sex = stringr::str_to_upper(sex),
+    SpeciesSex = forcats::fct_cross(species, sex)) |>
+  ggplot(aes(x=body_mass, y=bill_length, color=SpeciesSex, fill=SpeciesSex)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method = "lm", size = 2, alpha=0.3) +
+  theme_bw(base_size = 16) +
+  theme(legend.position = c(.85, .3))
+
+models |> 
+  summarise(broom::augment(model), .groups = "keep") |> 
+  mutate(
+    sex = stringr::str_to_upper(sex),
+    SpeciesSex = forcats::fct_cross(species, sex)) |>
+  ggplot(aes(x=body_mass, y=.std.resid, color=SpeciesSex, fill=SpeciesSex)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method = "loess", size = 2, level=0.68, alpha=0.2) +
+  theme_bw(base_size = 16) +
+  theme(legend.position = c(.85, .3))
+
+
 
 
 
