@@ -93,8 +93,14 @@ NC_long |>
 NeuroCog |>
   dplyr::select(-SocialCog, -Age, -Sex, -Dx) |>
   purrr::map(~lm(.x ~ NeuroCog$Dx, data = NeuroCog)) |>
-  purrr::map(broom::glance) |>
-  purrr::keep()
+  purrr::map(broom::glance) -> NC.glances
+
+dplyr::bind_cols(response= names(NC.glances), 
+                 bind_rows(NC.glances))
+
+
+purrr::keep(.p = TRUE)
+
   (tidyr::extract(c("statistic", "df", "p.value"))) #, df, df.residual, sigma, r.squared))
 
 NC_long |>
