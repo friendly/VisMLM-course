@@ -1,0 +1,174 @@
+---
+title: "<span style='font-size:0.8em;'>Visualizing Linear Models<br> An R Bag of Tricks</span>"
+subtitle: "Lecture 1: Getting Started"
+author: |
+  Michael Friendly 
+  <a href="http://twitter.com/datavisFriendly"><i class="fa fa-twitter fa-fw"></i>&nbsp; @datavisFriendly</a><br> 
+date: 'October, 2022'
+format: 
+  revealjs:
+    smaller: true
+    slide-number: true
+
+editor: source
+
+---
+
+
+## Topics for today:
+
+- What you need
+- Why plot your data?
+- Data plots 
+- Effect plots 
+- Diagnostic plots
+
+## What you need {.smaller}
+
+::: incremental
+- R, version >= 4.1; Download: [cran.r-project.org](https://cran.r-project.org)
+- RStudio IDE; Download: [www.rstudio.com/products/rstudio](https::www.rstudio.com/products/rstudio)
+- R packages: see course web page: [friendly.github.io/Vis-MLM-course](https://friendly.github.io/Vis-MLM-course)
+:::
+  + car
+  + effects
+  + heplots
+  + candisc
+  + visreg
+
+
+
+## Why plot your data?
+
+![](../fig/why-plot/cucumber.jpg){.absolute top=100 left=0 height="100"}
+
+
+![](../fig/why-plot/sunlight.jpg){.absolute top=100 right=0 height="100"}
+
+<br/></br/></br/><br/><br/>
+
+> _Getting information from a table is like extracting sunlight from a cucumber_ --- Farquhar & Farquhar, 1891
+
+* Do you want cucumbers?
+* Or, sunlight?
+
+
+
+## Cucumbers ![](../fig/why-plot/cucumber.jpg){.absolute top=0 right=0 height="80"}
+
+::: columns
+::: {.column width="40%"}
+![](../fig/why-plot/stevens_table-1.png)
+:::
+
+::: {.column width="60%" .smaller}
+- Results of one model for authoritarian aggression
+
+- The information is overwhelmed by footnotes and significance stars `***`
+
+![](../fig/why-plot/stevens_table-2.png)
+:::
+:::
+
+## What's wrong with this picture?
+
+![](../fig/why-plot/dont-understand2.gif){width="90%"}
+<br/><br/>
+
+The purpose of data display is **understanding**, not numbers or just pretty pictures
+
+## Sunlight ![](../fig/why-plot/sunlight.jpg){.absolute top=0 right=0 height="80"}
+
+:::: columns
+::: {.column width="60%"}
+
+``` r
+coefplot(model)
+```
+
+![](../fig/why-plot/stevens_fig.png)
+:::
+
+::: {.column width="40%" .smaller}
+- A presentation graph, equivalent to the table
+
+- Shows standardized coefficient w/ 90% CI
+
+- Factors (Country) shown relative to baseline category
+:::
+
+::::
+
+## Run, don't walk, toward the sunlight
+
+![](../fig/why-plot/running.gif){width="95%"}
+
+## Graphs can give enlightenment
+
+:::: columns
+::: {.column width="30%"}
+![](../fig/why-plot/cosmic-understanding.gif)
+:::
+
+::: {.column width="70%"}
+> _The greatest value of a picture is when it forces us to notice what we never expected to see_ --- John W. Tukey
+
+![](../fig/why-plot/davis-weight-anno.png)
+
+:::
+
+::::
+
+## Dangers of numbers-only output
+
+:::: {.columns}
+
+::: {.column width="60%"}
+**Student**: you said to run descriptives and calculate correlations. What's next?
+
+**Consultant**: Did you plot your data?
+
+<br/><br/><br/>
+
+With exactly the **same** stats, the data could be any of these[^1]
+
+[^1]: See how this was done: [datasaurus package for R](https://cran.r-project.org/web/packages/datasauRus/)
+:::
+
+
+::: {.column width="40%"}
+![](../fig/why-plot/datasaurus-table.png)
+
+<br/><br/><br/>
+
+![](../fig/why-plot/DinosaurusDozen.gif)
+
+:::
+
+::::
+
+## Sometimes, you don't need numbers
+
+**COVID transmission risk**: Occupancy * Ventilation * Activity * Mask? * Contact time
+
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+
